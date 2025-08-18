@@ -17,7 +17,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: [process.env.BASE_URL || 'http://localhost:3000'], // Allow requests from the frontend
+    origin: [process.env.BASE_URL || 'http://localhost:3000' , 'https://crm.sirswasolutions.com'], // Allow requests from the frontend
     credentials: true
 }));
 app.use(express.json());

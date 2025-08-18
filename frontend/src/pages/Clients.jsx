@@ -665,7 +665,6 @@ const Clients = () => {
                                         type="email"
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={12} md={6}>

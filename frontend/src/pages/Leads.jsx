@@ -64,7 +64,7 @@ const Leads = () => {
     const [filterStatus, setFilterStatus] = useState('all');
     const [filterSource, setFilterSource] = useState('all');
     const [tabValue, setTabValue] = useState(0);
-    const [setLoading] = useState(false); // just remove loading
+    const [loading , setLoading] = useState(false); // just remove loading
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
     // Form data
@@ -505,7 +505,7 @@ const Leads = () => {
                                         label="Phone Number"
                                         value={formData.phoneNumber}
                                         onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                                        required
+                                        
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -547,6 +547,7 @@ const Leads = () => {
                                         value={formData.followUpDate}
                                         onChange={(date) => setFormData({ ...formData, followUpDate: date })}
                                         renderInput={(params) => <TextField {...params} fullWidth />}
+                                        defaultValue={date => new Date(date)}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

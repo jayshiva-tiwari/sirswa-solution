@@ -134,7 +134,7 @@ const Register = () => {
               onChange={(e) => setFormData({...formData, role: e.target.value})}
               margin="normal"
             >
-              <MenuItem value="admin">Admin</MenuItem>
+              {/* <MenuItem value="admin">Admin</MenuItem> */}
               <MenuItem value="calling_staff">Calling Staff</MenuItem>
             </TextField>
             
