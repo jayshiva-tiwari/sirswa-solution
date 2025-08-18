@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader'; // Import the Loader component
 import {
   Container,
   Paper,
@@ -49,12 +50,12 @@ const Dashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
-    
+
     if (!token || !userData) {
       navigate('/login');
       return;
     }
-    
+
     setUser(JSON.parse(userData));
   }, [navigate]);
 
@@ -79,7 +80,15 @@ const Dashboard = () => {
   if (!user) {
     return (
       <Container>
-        <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Loading...</Typography>
+        <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> 
+          <Loader
+            // message="Custom loading text..."
+            // Optional props:
+            // emojis={['🚀', '👨‍💻', '🎨', '🦄']} // Custom emoji set
+            // speed={500} // Animation speed in ms
+            // themeColor="#4dabf7" // Change progress bar color
+          /> 
+        </Typography>
       </Container>
     );
   }
@@ -98,18 +107,18 @@ const Dashboard = () => {
     return role === 'admin' ? '#667eea' : '#764ba2';
   };
 
-  const features = user.role === 'admin' 
+  const features = user.role === 'admin'
     ? [
-        // { icon: <DashboardIcon />, title: 'Dashboard', description: 'Overview and analytics', path: '/dashboard', color: '#667eea' },
-        { icon: <People />, title: 'Leads & Prospects', description: 'Manage leads and prospects', path: '/leads', color: '#3b82f6' },
-        { icon: <Groups />, title: 'Clients Management', description: 'Client management', path: '/clients', color: '#10b981' },
-        { icon: <Receipt />, title: 'Expenses Management', description: 'Track expenses', path: '/expenses', color: '#f59e0b' },
-        // { icon: <Assessment />, title: 'Reports', description: 'View reports', path: '/reports', color: '#ef4444' },
-      ]
+      // { icon: <DashboardIcon />, title: 'Dashboard', description: 'Overview and analytics', path: '/dashboard', color: '#667eea' },
+      { icon: <People />, title: 'Leads & Prospects', description: 'Manage leads and prospects', path: '/leads', color: '#3b82f6' },
+      { icon: <Groups />, title: 'Clients Management', description: 'Client management', path: '/clients', color: '#10b981' },
+      { icon: <Receipt />, title: 'Expenses Management', description: 'Track expenses', path: '/expenses', color: '#f59e0b' },
+      // { icon: <Assessment />, title: 'Reports', description: 'View reports', path: '/reports', color: '#ef4444' },
+    ]
     : [
-        { icon: <People />, title: 'Leads', description: 'Manage leads and prospects', path: '/leads', color: '#3b82f6' },
-        { icon: <Groups />, title: 'Clients', description: 'Client management', path: '/clients', color: '#10b981' },
-      ];
+      { icon: <People />, title: 'Leads', description: 'Manage leads and prospects', path: '/leads', color: '#3b82f6' },
+      { icon: <Groups />, title: 'Clients', description: 'Client management', path: '/clients', color: '#10b981' },
+    ];
 
   // Mock data for recent activities
   const recentActivities = [
@@ -128,7 +137,7 @@ const Dashboard = () => {
   ];
 
   const getPriorityColor = (priority) => {
-    switch(priority) {
+    switch (priority) {
       case 'high': return 'error';
       case 'medium': return 'warning';
       case 'low': return 'success';
@@ -145,7 +154,7 @@ const Dashboard = () => {
             <Box display="flex" justifyContent="space-between" alignItems="center">
               <Box>
                 <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src="https://i.pinimg.com/736x/76/bf/92/76bf929f50301acec6eaa8a7eeb5a21a.jpg" style={{ width: '50px', height: '50px', marginRight: '10px'}} alt="" />
+                  <img src="https://i.pinimg.com/736x/76/bf/92/76bf929f50301acec6eaa8a7eeb5a21a.jpg" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
                   <p>Welcome to Dashboard</p>
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
@@ -153,12 +162,12 @@ const Dashboard = () => {
                 </Typography>
               </Box>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <Grid container spacing={2} sx={{ mt: 1 }}>
+                <Grid container spacing={2} sx={{ mt: 1 }}>
                   {features.map((feature, index) => (
                     <Grid item xs={12} sm={6} key={index}>
-                      <Paper 
+                      <Paper
                         elevation={0}
-                        sx={{ 
+                        sx={{
                           p: 2,
                           cursor: 'pointer',
                           border: '1px solid',
@@ -181,7 +190,7 @@ const Dashboard = () => {
                             <Avatar sx={{ bgcolor: feature.color, mr: 1 }}>
                               {feature.icon}
                             </Avatar>
-                            <Box sx={{ height: '3.5vw',  }}>
+                            <Box sx={{ height: '3.5vw', }}>
                               <Typography variant="subtitle1" fontWeight="bold" style={{ fontSize: '0.9vw', width: '4vw', textAlign: 'left' }}>
                                 {feature.title}
                               </Typography>
@@ -195,30 +204,30 @@ const Dashboard = () => {
                       </Paper>
                     </Grid>
                   ))}
-              </Grid>
-              
-              {/* Profile Circle Icon */}
-              <IconButton
-                onClick={handleProfileClick}
-                size="small"
-              >
-                <Avatar 
-                  sx={{ 
-                    width: 50, 
-                    height: 50,
-                    bgcolor: getAvatarColor(user.role),
-                    fontSize: '1.2rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s',
-                    '&:hover': {
-                      transform: 'scale(1.1)',
-                      boxShadow: 3,
-                    }
-                  }}
+                </Grid>
+
+                {/* Profile Circle Icon */}
+                <IconButton
+                  onClick={handleProfileClick}
+                  size="small"
                 >
-                  {getInitials(user.name)}
-                </Avatar>
-              </IconButton>
+                  <Avatar
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      bgcolor: getAvatarColor(user.role),
+                      fontSize: '1.2rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s',
+                      '&:hover': {
+                        transform: 'scale(1.1)',
+                        boxShadow: 3,
+                      }
+                    }}
+                  >
+                    {getInitials(user.name)}
+                  </Avatar>
+                </IconButton>
               </div>
             </Box>
           </Paper>
@@ -253,16 +262,16 @@ const Dashboard = () => {
                   </Typography>
                 </Box>
               </Box>
-              <Chip 
-                label={user.role === 'admin' ? 'Administrator' : 'Calling Staff'} 
+              <Chip
+                label={user.role === 'admin' ? 'Administrator' : 'Calling Staff'}
                 color={user.role === 'admin' ? 'primary' : 'default'}
                 size="small"
                 sx={{ mt: 1, width: '100%' }}
               />
             </Box>
-            
+
             <Divider />
-            
+
             {/* <MenuItem>
               <ListItemIcon>
                 <Person fontSize="small" />
@@ -276,9 +285,9 @@ const Dashboard = () => {
               </ListItemIcon>
               <ListItemText>Settings</ListItemText>
             </MenuItem> */}
-            
+
             <Divider />
-            
+
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize="small" color="error" />
@@ -292,7 +301,7 @@ const Dashboard = () => {
           {/* Stats Cards */}
           <Grid container spacing={2} sx={{ mb: 3 }}>
             <Grid item xs={12} sm={6} md={3}  >
-              <Card sx={{ bgcolor: 'primary.main', color: 'white', width: "23vw"  }}>
+              <Card sx={{ bgcolor: 'primary.main', color: 'white', width: "23vw" }}>
                 <CardContent>
                   <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Box>
@@ -310,7 +319,7 @@ const Dashboard = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ bgcolor: 'success.main', color: 'white' , width: "23vw" }}>
+              <Card sx={{ bgcolor: 'success.main', color: 'white', width: "23vw" }}>
                 <CardContent>
                   <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Box>
@@ -366,7 +375,7 @@ const Dashboard = () => {
 
           <Grid container spacing={3} sx={{ alignContent: 'center' }}>
             {/* Quick Actions / Features */}
-            
+
 
             {/* Upcoming Tasks */}
             <Grid item xs={12} md={4}>
@@ -383,9 +392,9 @@ const Dashboard = () => {
                       <Box sx={{ width: '100%' }}>
                         <Box display="flex" justifyContent="space-between" alignItems="center">
                           <Typography variant="body2">{task.title}</Typography>
-                          <Chip 
-                            label={task.priority} 
-                            size="small" 
+                          <Chip
+                            label={task.priority}
+                            size="small"
                             color={getPriorityColor(task.priority)}
                           />
                         </Box>

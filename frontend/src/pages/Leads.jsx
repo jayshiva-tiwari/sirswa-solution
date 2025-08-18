@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // 17-08 update
 import {
     Container,
     Paper,
@@ -51,7 +52,7 @@ import {
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import axios from 'axios';
+// import axios from 'axios';
 
 const Leads = () => {
     // States
@@ -63,7 +64,7 @@ const Leads = () => {
     const [filterStatus, setFilterStatus] = useState('all');
     const [filterSource, setFilterSource] = useState('all');
     const [tabValue, setTabValue] = useState(0);
-    const [loading, setLoading] = useState(false);
+    const [setLoading] = useState(false); // just remove loading
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
     // Form data
@@ -98,7 +99,7 @@ const Leads = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/leads', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/leads`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setLeads(response.data);
@@ -157,10 +158,10 @@ const Leads = () => {
             };
 
             if (editingLead) {
-                await axios.put(`http://localhost:5000/api/leads/${editingLead._id}`, formData, config);
+                await axios.put(`${import.meta.env.VITE_API_URL}/api/leads/${editingLead._id}`, formData, config);
                 showSnackbar('Lead updated successfully', 'success');
             } else {
-                await axios.post('http://localhost:5000/api/leads', formData, config);
+                await axios.post(`${import.meta.env.VITE_API_URL}/api/leads`, formData, config);
                 showSnackbar('Lead created successfully', 'success');
             }
 
@@ -176,7 +177,7 @@ const Leads = () => {
         if (window.confirm('Are you sure you want to delete this lead?')) {
             try {
                 const token = localStorage.getItem('token');
-                await axios.delete(`http://localhost:5000/api/leads/${id}`, {
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/leads/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 showSnackbar('Lead deleted successfully', 'success');

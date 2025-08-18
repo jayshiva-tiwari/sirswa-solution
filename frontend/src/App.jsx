@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Leads from './pages/Leads';
 import Clients from './pages/Clients';
 import Expenses from './pages/Expenses';
+import Loader from './components/Loader';
 
 const theme = createTheme({
   palette: {

@@ -120,7 +120,7 @@ const Expenses = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/expenses', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/expenses`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             console.log('Expenses fetched:', response.data);
@@ -145,7 +145,7 @@ const Expenses = () => {
             const month = selectedDate.getMonth() + 1;
 
             const response = await axios.get(
-                `http://localhost:5000/api/expenses/summary?year=${year}&month=${month}`,
+                `${import.meta.env.VITE_API_URL}/api/expenses/summary?year=${year}&month=${month}`,
                 {
                     headers: { Authorization: `Bearer ${token}` }
                 }
@@ -203,13 +203,13 @@ const Expenses = () => {
 
             if (editingExpense) {
                 await axios.put(
-                    `http://localhost:5000/api/expenses/${editingExpense._id}`,
+                    `${import.meta.env.VITE_API_URL}/api/expenses/${editingExpense._id}`,
                     formData,
                     config
                 );
                 showSnackbar('Expense updated successfully', 'success');
             } else {
-                await axios.post('http://localhost:5000/api/expenses', formData, config);
+                await axios.post(`${import.meta.env.VITE_API_URL}/api/expenses`, formData, config);
                 showSnackbar('Expense added successfully', 'success');
             }
 
@@ -227,7 +227,7 @@ const Expenses = () => {
         if (window.confirm('Are you sure you want to delete this expense?')) {
             try {
                 const token = localStorage.getItem('token');
-                await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/expenses/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 showSnackbar('Expense deleted successfully', 'success');
@@ -465,7 +465,14 @@ const Expenses = () => {
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
                         <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
                             <img src="https://i.pinimg.com/736x/76/bf/92/76bf929f50301acec6eaa8a7eeb5a21a.jpg" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
-                            <p>Expense & Profit Tracking</p>
+                            <span class="relative text-4xl font-bold text-gray-800 group">
+                                <span class="relative z-10 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-cyan-500">
+                                    <span class="group-hover:drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+                                        <a href="/dashboard" className='' style={{ textDecoration: 'none', color: 'inherit' }}  ><p>Expense & Profit Tracking</p></a>
+                                    </span>
+                                </span>
+                                <span class="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-emerald-400 to-cyan-500 transition-all duration-500 group-hover:w-full"></span>
+                            </span>
                         </Typography>
                         <Box display="flex" gap={2}>
                             <Button

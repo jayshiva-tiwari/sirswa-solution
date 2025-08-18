@@ -17,7 +17,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
+    origin: [process.env.BASE_URL || 'http://localhost:3000'], // Allow requests from the frontend
     credentials: true
 }));
 app.use(express.json());
@@ -89,9 +89,6 @@ const server = app.listen(PORT, () => {
     console.log(`✅ Server is running on port ${PORT}`);
     console.log(`📍 Local: http://localhost:${PORT}`);
     console.log(`📍 Test Auth: http://localhost:${PORT}/api/auth/test`);
-    console.log('================================================');
-    console.log('📧 Default Admin: admin@example.com');
-    console.log('🔑 Password: admin123');
     console.log('================================================');
 });
 

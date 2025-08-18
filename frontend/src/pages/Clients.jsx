@@ -115,7 +115,7 @@ const Clients = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/clients', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/clients`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             console.log('Clients fetched:', response.data);
@@ -132,7 +132,7 @@ const Clients = () => {
     const fetchStats = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:5000/api/clients/stats', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/clients/stats`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setStats(response.data);
@@ -195,10 +195,10 @@ const Clients = () => {
             };
 
             if (editingClient) {
-                await axios.put(`http://localhost:5000/api/clients/${editingClient._id}`, formData, config);
+                await axios.put(`${import.meta.env.VITE_API_URL}/api/clients/${editingClient._id}`, formData, config);
                 showSnackbar('Client updated successfully', 'success');
             } else {
-                await axios.post('http://localhost:5000/api/clients', formData, config);
+                await axios.post(`${import.meta.env.VITE_API_URL}/api/clients`, formData, config);
                 showSnackbar('Client created successfully', 'success');
             }
 
@@ -220,7 +220,7 @@ const Clients = () => {
             };
 
             await axios.post(
-                `http://localhost:5000/api/clients/${selectedClient._id}/payment`,
+                `${import.meta.env.VITE_API_URL}/api/clients/${selectedClient._id}/payment`,
                 paymentData,
                 config
             );
@@ -240,7 +240,7 @@ const Clients = () => {
         if (window.confirm('Are you sure you want to delete this client?')) {
             try {
                 const token = localStorage.getItem('token');
-                await axios.delete(`http://localhost:5000/api/clients/${id}`, {
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/clients/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 showSnackbar('Client deleted successfully', 'success');
