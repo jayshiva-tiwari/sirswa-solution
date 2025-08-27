@@ -38,7 +38,16 @@ router.get('/', authMiddleware, async (req, res) => {
     try {
         console.log('GET /api/leads - userId:', req.userId); //debug
         const { status, source, startDate, endDate } = req.query;
+        // let filter = { createdBy: req.userId };
+
         let filter = {};
+
+        if (req.userRole === 'admin') {
+            filter = {};
+        }
+        else{
+            filter = { createdBy: req.userId };
+        }
 
         // Add filters if provided
         if (status) filter.status = status;
@@ -48,6 +57,8 @@ router.get('/', authMiddleware, async (req, res) => {
             if (startDate) filter.date.$gte = new Date(startDate);
             if (endDate) filter.date.$lte = new Date(endDate);
         }
+
+
 
         const leads = await Lead.find(filter)
             .populate('createdBy', 'name email')

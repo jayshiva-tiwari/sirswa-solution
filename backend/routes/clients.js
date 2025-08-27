@@ -16,6 +16,13 @@ router.get('/', authMiddleware, async (req, res) => {
     const { deliveryStatus, startDate, endDate } = req.query;
     let filter = {};
     
+    if (req.userRole === 'admin') {
+      filter = {};
+    }
+    else{
+      filter = { createdBy: req.userId };
+    }
+
     // Add filters
     if (deliveryStatus && deliveryStatus !== 'all') {
       filter.deliveryStatus = deliveryStatus;
