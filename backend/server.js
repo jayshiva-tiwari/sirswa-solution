@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const leadRoutes = require('./routes/leads'); // leads routes
 const clientRoutes = require('./routes/clients'); // client routes
 const expenseRoutes = require('./routes/expenses'); // expenses routes
+const statsRoutes = require('./routes/stats'); // stats routes
 
 
 // Load environment variables
@@ -63,6 +64,8 @@ console.log('✅ Client routes loaded');
 app.use('/api/expenses', expenseRoutes);
 console.log('✅ Expense routes loaded');
 
+app.use('/api/stats', statsRoutes);
+console.log('✅ Stats routes loaded');
 
 // 404 handler
 app.use((req, res) => {

@@ -1,91 +1,134 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-const FunnyLoader = ({
-    message = "Preparing magic...",
-    emojis = ['🧙', '🪄', '✨', '🐇', '🎩', '🔮'],
-    funnyMessages = [
-        "Brewing coffee...",
-        "Training hamsters...",
-        "Reversing entropy...",
-        "Convincing AI to work...",
-        "Waking up the developer...",
-        "Almost there..."
-    ],
-    speed = 800,
-    themeColor = 'bg-gradient-to-r from-pink-500 to-purple-600'
-}) => {
-    const [activeEmoji, setActiveEmoji] = useState(0);
-    const [progress, setProgress] = useState(0);
-
-    useEffect(() => {
-        const emojiInterval = setInterval(() => {
-            setActiveEmoji(prev => (prev + 1) % emojis.length);
-        }, speed);
-
-        const progressInterval = setInterval(() => {
-            setProgress(prev => (prev >= 100 ? 0 : prev + Math.random() * 10));
-        }, speed / 2);
-
-        return () => {
-            clearInterval(emojiInterval);
-            clearInterval(progressInterval);
-        };
-    }, [emojis.length, speed]);
-
-    const getRandomMessage = () => {
-        return funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
-    };
-
+const Loader = () => {
     return (
-        <div className="max-w-xs mx-auto p-8 bg-white rounded-2xl shadow-lg text-center">
-            {/* Emoji with bounce animation */}
-            <div className="text-6xl mb-4 animate-bounce">
-                {emojis[activeEmoji]}
+        <StyledWrapper>
+            <div className="loader-wrapper">
+                <span className="loader-letter">G</span>
+                <span className="loader-letter">e</span>
+                <span className="loader-letter">n</span>
+                <span className="loader-letter">e</span>
+                <span className="loader-letter">r</span>
+                <span className="loader-letter">a</span>
+                <span className="loader-letter">t</span>
+                <span className="loader-letter">i</span>
+                <span className="loader-letter">n</span>
+                <span className="loader-letter">g</span>
+                <div className="loader" />
             </div>
-
-            {/* Progress bar with animated gradient */}
-            <div className="h-5 bg-gray-200 rounded-full mb-4 overflow-hidden">
-                <div
-                    className={`h-full rounded-full ${themeColor} transition-all duration-300 ease-out`}
-                    style={{ width: `${Math.min(progress, 100)}%` }}
-                >
-                    <span className="text-xs font-bold text-white pl-2">
-                        {Math.min(Math.floor(progress), 100)}%
-                    </span>
-                </div>
-            </div>
-
-            {/* Rotating messages */}
-            <p className="text-gray-700 min-h-5 mb-4">
-                {progress % 20 < 5 ? message : getRandomMessage()}
-            </p>
-
-            {/* Floating sparkles */}
-            <div className="relative h-8">
-                {[...Array(8)].map((_, i) => (
-                    <span
-                        key={i}
-                        className="absolute text-xl opacity-0"
-                        style={{
-                            animation: `sparkle 2s infinite ease-in-out ${i * 0.1}s`,
-                            left: `${Math.random() * 90 + 5}%`
-                        }}
-                    >
-                        ✨
-                    </span>
-                ))}
-            </div>
-
-            {/* Inject the animation styles */}
-            <style jsx>{`
-                @keyframes sparkle {
-                    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-                    50% { opacity: 1; }
-                    100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
-                }
-            `}</style>
-        </div>
+        </StyledWrapper>
     );
-};
+}
 
-export default FunnyLoader;
+const StyledWrapper = styled.div`
+.loader-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+    font-family: "Inter", sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    color: white;
+    border-radius: 50%;
+    background-color: transparent;
+    user-select: none;
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background-color: transparent;
+    animation: loader-rotate 2s linear infinite;
+    z-index: 0;
+}
+
+@keyframes loader-rotate {
+    0% {
+    transform: rotate(90deg);
+    box-shadow:
+        0 10px 20px 0 #fff inset,
+        0 20px 30px 0 #ad5fff inset,
+        0 60px 60px 0 #471eec inset;
+    }
+    50% {
+        transform: rotate(270deg);
+        box-shadow:
+            0 10px 20px 0 #fff inset,
+            0 20px 10px 0 #d60a47 inset,
+            0 40px 60px 0 #311e80 inset;
+    }
+    100% {
+        transform: rotate(450deg);
+        box-shadow:
+            0 10px 20px 0 #fff inset,
+            0 20px 30px 0 #ad5fff inset,
+            0 60px 60px 0 #471eec inset;
+    }
+}
+
+.loader-letter {
+    display: inline-block;
+    opacity: 0.4;
+    transform: translateY(0);
+    animation: loader-letter-anim 2s infinite;
+    z-index: 1;
+    border-radius: 50ch;
+    border: none;
+}
+
+.loader-letter:nth-child(1) {
+    animation-delay: 0s;
+}
+.loader-letter:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.loader-letter:nth-child(3) {
+    animation-delay: 0.2s;
+}
+.loader-letter:nth-child(4) {
+    animation-delay: 0.3s;
+}
+.loader-letter:nth-child(5) {
+    animation-delay: 0.4s;
+}
+.loader-letter:nth-child(6) {
+    animation-delay: 0.5s;
+}
+.loader-letter:nth-child(7) {
+    animation-delay: 0.6s;
+}
+.loader-letter:nth-child(8) {
+    animation-delay: 0.7s;
+}
+.loader-letter:nth-child(9) {
+    animation-delay: 0.8s;
+}
+.loader-letter:nth-child(10) {
+    animation-delay: 0.9s;
+}
+
+@keyframes loader-letter-anim {
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+    40% {
+        opacity: 0.7;
+        transform: translateY(0);
+    }
+}`;
+
+export default Loader;

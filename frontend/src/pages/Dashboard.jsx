@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader'; // Import the Loader component
+// import Landing from '../components/Landing'; // Import the Landing component
+import Background from '../components/Background';
 import {
   Container,
   Paper,
@@ -40,6 +42,7 @@ import {
   AttachMoney,
   Task,
 } from '@mui/icons-material';
+// import { grey } from '@mui/material/colors';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -80,14 +83,8 @@ const Dashboard = () => {
   if (!user) {
     return (
       <Container>
-        <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}> 
-          <Loader
-            // message="Custom loading text..."
-            // Optional props:
-            // emojis={['🚀', '👨‍💻', '🎨', '🦄']} // Custom emoji set
-            // speed={500} // Animation speed in ms
-            // themeColor="#4dabf7" // Change progress bar color
-          /> 
+        <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Loader/>
         </Typography>
       </Container>
     );
@@ -110,9 +107,9 @@ const Dashboard = () => {
   const features = user.role === 'admin'
     ? [
       // { icon: <DashboardIcon />, title: 'Dashboard', description: 'Overview and analytics', path: '/dashboard', color: '#667eea' },
-      { icon: <People />, title: 'Leads & Prospects', description: 'Manage leads and prospects', path: '/leads', color: '#3b82f6' },
-      { icon: <Groups />, title: 'Clients Management', description: 'Client management', path: '/clients', color: '#10b981' },
-      { icon: <Receipt />, title: 'Expenses Management', description: 'Track expenses', path: '/expenses', color: '#f59e0b' },
+      { icon: <People />, title: 'Leads', description: 'Manage leads and prospects', path: '/leads', color: '#3b82f6' },
+      { icon: <Groups />, title: 'Client', description: 'Client management', path: '/clients', color: '#10b981' },
+      { icon: <Receipt />, title: 'Expenses', description: 'Track expenses', path: '/expenses', color: '#f59e0b' },
       // { icon: <Assessment />, title: 'Reports', description: 'View reports', path: '/reports', color: '#ef4444' },
     ]
     : [
@@ -146,133 +143,134 @@ const Dashboard = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', pb: 4 }}>
-      <Container maxWidth="xl" align="center">
-        <Box sx={{ pt: 4 }}>
-          {/* Header with Profile Icon */}
-          <Paper elevation={0} sx={{ p: 3, mb: 3, bgcolor: 'white' }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-              <Box>
-                <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src="https://i.pinimg.com/736x/76/bf/92/76bf929f50301acec6eaa8a7eeb5a21a.jpg" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
-                  <p>Welcome to Dashboard</p>
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  Hello {user.name}, here's what's happening with your business today.
-                </Typography>
-              </Box>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <Grid container spacing={2} sx={{ mt: 1 }}>
-                  {features.map((feature, index) => (
-                    <Grid item xs={12} sm={6} key={index}>
-                      <Paper
-                        elevation={0}
-                        sx={{
-                          p: 2,
-                          cursor: 'pointer',
-                          border: '1px solid',
-                          borderColor: 'divider',
-                          transition: 'all 0.3s',
-                          width: '14vw',
+    <Background gradient="from-indigo-50 via-violet-50 to-white" patternColor="#4f46e5">
+      <Box sx={{ minHeight: '100vh', pb: 4 }}>
+        <Container maxWidth="xl" align="center">
+          <Box sx={{ pt: 4 }}>
+            {/* Header with Profile Icon */}
+            <Paper elevation={0} sx={{ p: 2, mb: 3, bgcolor: '#ffffffa7', borderRadius: '10px', paddingRight: '2vw', paddingLeft: '1vw' }}>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <div className='flex justify-between items-center'>
+                  <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
+                    <img src="./public/s-logo.png" style={{ width: '5vw', height: '5vw', marginRight: '10px' }} alt="" />
+                  </Typography>
+                  <div className='flex flex-col items-start'>
+                    <h2 className='font-bold text-2xl w-full text-left'>Welcome to Dashboard</h2>
+                    <p className='text-gray-800 text-left '>Hello {user.name} !!</p>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <Grid container spacing={2} sx={{ mt: 1 }}>
+                    {features.map((feature, index) => (
+                      <Grid item xs={12} sm={6} key={index}>
+                        <Paper
+                          elevation={0}
+                          sx={{
+                            p: 2,
+                            cursor: 'pointer',
+                            border: '1px solid',
+                            borderColor: 'divider',
+                            transition: 'all 0.3s',
+                            width: '14vw',
 
-                          borderRadius: 11,
-                          '&:hover': {
-                            boxShadow: 3,
-                            transform: 'translateY(-2px)',
-                            borderColor: feature.color,
-                            bgcolor: `${feature.color}10`,
-                          }
-                        }}
-                        onClick={() => handleFeatureClick(feature.path)}
-                      >
-                        <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ height: '2vw' }}>
-                          <Box display="flex" alignItems="center">
-                            <Avatar sx={{ bgcolor: feature.color, mr: 1 }}>
-                              {feature.icon}
-                            </Avatar>
-                            <Box sx={{ height: '3.5vw', }}>
-                              <Typography variant="subtitle1" fontWeight="bold" style={{ fontSize: '0.9vw', width: '4vw', textAlign: 'left' }}>
-                                {feature.title}
-                              </Typography>
-                              {/* <Typography variant="body3" color="text.secondary" style={{ fontSize: '0.6vw', marginTop: '0vw' }}>
+                            borderRadius: 11,
+                            '&:hover': {
+                              boxShadow: 3,
+                              transform: 'translateY(-2px)',
+                              borderColor: feature.color,
+                              bgcolor: `${feature.color}20`,
+                            }
+                          }}
+                          onClick={() => handleFeatureClick(feature.path)}
+                        >
+                          <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ height: '2vw', }}>
+                            <Box display="flex" alignItems="center" >
+                              <Avatar sx={{ bgcolor: feature.color, mr: 2 }}>
+                                {feature.icon}
+                              </Avatar>
+                              <Box sx={{ height: '3vw', justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
+                                <Typography variant="subtitle1" fontWeight="bold" style={{ fontSize: '1.2vw', width: '3vw', textAlign: 'left' }}>
+                                  {feature.title}
+                                </Typography>
+                                {/* <Typography variant="body3" color="text.secondary" style={{ fontSize: '0.6vw', marginTop: '0vw' }}>
                                 {feature.description}
                               </Typography> */}
+                              </Box>
                             </Box>
+                            <ArrowForward sx={{ color: 'text.secondary', marginLeft: 1 }} />
                           </Box>
-                          <ArrowForward sx={{ color: 'text.secondary', marginLeft: 1 }} />
-                        </Box>
-                      </Paper>
-                    </Grid>
-                  ))}
-                </Grid>
+                        </Paper>
+                      </Grid>
+                    ))}
+                  </Grid>
 
-                {/* Profile Circle Icon */}
-                <IconButton
-                  onClick={handleProfileClick}
-                  size="small"
-                >
-                  <Avatar
-                    sx={{
-                      width: 50,
-                      height: 50,
-                      bgcolor: getAvatarColor(user.role),
-                      fontSize: '1.2rem',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        transform: 'scale(1.1)',
-                        boxShadow: 3,
-                      }
-                    }}
+                  {/* Profile Circle Icon */}
+                  <IconButton
+                    onClick={handleProfileClick}
+                    size="small"
                   >
+                    <Avatar
+                      sx={{
+                        width: 50,
+                        height: 50,
+                        bgcolor: getAvatarColor(user.role),
+                        fontSize: '1.2rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                          boxShadow: 3,
+                        }
+                      }}
+                    >
+                      {getInitials(user.name)}
+                    </Avatar>
+                  </IconButton>
+                </div>
+              </Box>
+            </Paper>
+
+            {/* Profile Dropdown Menu */}
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              PaperProps={{
+                elevation: 3,
+                sx: {
+                  mt: 1.5,
+                  minWidth: 250,
+                },
+              }}
+            >
+              <Box sx={{ px: 2, py: 1.5 }}>
+                <Box display="flex" alignItems="center" mb={1}  >
+                  <Avatar sx={{ bgcolor: getAvatarColor(user.role), mr: 1.5 }}>
                     {getInitials(user.name)}
                   </Avatar>
-                </IconButton>
-              </div>
-            </Box>
-          </Paper>
-
-          {/* Profile Dropdown Menu */}
-          <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            onClick={handleClose}
-            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            PaperProps={{
-              elevation: 3,
-              sx: {
-                mt: 1.5,
-                minWidth: 250,
-              },
-            }}
-          >
-            <Box sx={{ px: 2, py: 1.5 }}>
-              <Box display="flex" alignItems="center" mb={1}>
-                <Avatar sx={{ bgcolor: getAvatarColor(user.role), mr: 1.5 }}>
-                  {getInitials(user.name)}
-                </Avatar>
-                <Box>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {user.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {user.email}
-                  </Typography>
+                  <Box>
+                    <Typography variant="subtitle1" fontWeight="bold">
+                      {user.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {user.email}
+                    </Typography>
+                  </Box>
                 </Box>
+                <Chip
+                  label={user.role === 'admin' ? 'Administrator' : 'Calling Staff'}
+                  color={user.role === 'admin' ? 'primary' : 'default'}
+                  size="small"
+                  sx={{ mt: 1, width: '100%' }}
+                />
               </Box>
-              <Chip
-                label={user.role === 'admin' ? 'Administrator' : 'Calling Staff'}
-                color={user.role === 'admin' ? 'primary' : 'default'}
-                size="small"
-                sx={{ mt: 1, width: '100%' }}
-              />
-            </Box>
 
-            <Divider />
+              <Divider />
 
-            {/* <MenuItem>
+              {/* <MenuItem>
               <ListItemIcon>
                 <Person fontSize="small" />
               </ListItemIcon>
@@ -286,227 +284,251 @@ const Dashboard = () => {
               <ListItemText>Settings</ListItemText>
             </MenuItem> */}
 
-            <Divider />
+              <Divider />
 
-            <MenuItem onClick={handleLogout}>
-              <ListItemIcon>
-                <Logout fontSize="small" color="error" />
-              </ListItemIcon>
-              <ListItemText>
-                <Typography color="error">Logout</Typography>
-              </ListItemText>
-            </MenuItem>
-          </Menu>
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon>
+                  <Logout fontSize="small" color="error" />
+                </ListItemIcon>
+                <ListItemText>
+                  <Typography color="error">Logout</Typography>
+                </ListItemText>
+              </MenuItem>
+            </Menu>
 
-          {/* Stats Cards */}
-          <Grid container spacing={2} sx={{ mb: 3 }}>
-            <Grid item xs={12} sm={6} md={3}  >
-              <Card sx={{ bgcolor: 'primary.main', color: 'white', width: "23vw" }}>
-                <CardContent>
-                  <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Box>
-                      <Typography variant="h4" fontWeight="bold">156</Typography>
-                      <Typography variant="body2" sx={{ opacity: 0.9 }}>Total Leads</Typography>
+            {/* <Landing></Landing> */}
+
+            <div class="w-full text-center flex align-center justify-center flex-col mb-8 h-[35vw] gap-[3vw] ">
+                <div className='flex align-center justify-center flex-col gap-[1vw]'>
+                  <h1 class="mb-8 text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl text-slate-900">
+                  We Build Greatness with <span class="bg-linear-to-r from-pink-500 to-violet-500 bg-clip-text  text-transparent">Sirswa</span>
+                  {/* <span class="text-sky-900">Project</span> */}
+                </h1>
+                <p class="mx-auto mb-8 w-full text-lg text-slate-700 align-center">
+                  All-in-one CRM tailored for your workflow - Leads, Clients, Projects, Expenses & Profit <br /> analytics in a single dashboard.
+                </p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-4">
+                  <button class="rounded-lg  font-medium bg-sky-900 text-white hover:bg-sky-800 w-[11vw] h-[5vh]">
+                    Get Start your Day
+                  </button>
+                  <button class="rounded-lg border w-[8vw] h-[5vh] font-medium border-slate-200 bg-white transparent text-slate-900 hover:bg-slate-50">
+                    scroll Down
+                  </button>
+                </div>
+              </div>
+
+            {/* Stats Cards */}
+            <Grid container spacing={2} sx={{ mb: 3 }}>
+              <Grid item xs={12} sm={6} md={3}  >
+                <Card sx={{ bgcolor: '#2563EBb3', color: 'white', width: "23vw" }}>
+                  <CardContent>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Box>
+                        <Typography variant="h4" fontWeight="bold">156</Typography>
+                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Total Leads</Typography>
+                      </Box>
+                      <People sx={{ fontSize: 40, opacity: 0.3 }} />
                     </Box>
-                    <People sx={{ fontSize: 40, opacity: 0.3 }} />
-                  </Box>
-                  <Box display="flex" alignItems="center" mt={1}>
-                    <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
-                    <Typography variant="caption">12% increase</Typography>
-                  </Box>
-                </CardContent>
-              </Card>
+                    <Box display="flex" alignItems="center" mt={1}>
+                      <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
+                      <Typography variant="caption">12% increase</Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={3}>
+                <Card sx={{ bgcolor: '#2E7D32b3', color: 'white', width: "23vw" }}>
+                  <CardContent>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Box>
+                        <Typography variant="h4" fontWeight="bold">48</Typography>
+                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Active Clients</Typography>
+                      </Box>
+                      <Groups sx={{ fontSize: 40, opacity: 0.3 }} />
+                    </Box>
+                    <Box display="flex" alignItems="center" mt={1}>
+                      <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
+                      <Typography variant="caption">8% increase</Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={3}>
+                <Card sx={{ bgcolor: '#ED6C02b3', color: 'white', width: "23vw" }}>
+                  <CardContent>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Box>
+                        <Typography variant="h4" fontWeight="bold">₹2.4L</Typography>
+                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Revenue</Typography>
+                      </Box>
+                      <AttachMoney sx={{ fontSize: 40, opacity: 0.3 }} />
+                    </Box>
+                    <Box display="flex" alignItems="center" mt={1}>
+                      <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
+                      <Typography variant="caption">23% increase</Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              <Grid item xs={12} sm={6} md={3}>
+                <Card sx={{ bgcolor: '#0288D1b3', color: 'white', width: "23.7vw" }}>
+                  <CardContent>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Box>
+                        <Typography variant="h4" fontWeight="bold">31%</Typography>
+                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Conversion</Typography>
+                      </Box>
+                      <Assessment sx={{ fontSize: 40, opacity: 0.3 }} />
+                    </Box>
+                    <Box display="flex" alignItems="center" mt={1}>
+                      <TrendingDown sx={{ fontSize: 16, mr: 0.5 }} />
+                      <Typography variant="caption">3% decrease</Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ bgcolor: 'success.main', color: 'white', width: "23vw" }}>
-                <CardContent>
-                  <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Box>
-                      <Typography variant="h4" fontWeight="bold">48</Typography>
-                      <Typography variant="body2" sx={{ opacity: 0.9 }}>Active Clients</Typography>
-                    </Box>
-                    <Groups sx={{ fontSize: 40, opacity: 0.3 }} />
-                  </Box>
-                  <Box display="flex" alignItems="center" mt={1}>
-                    <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
-                    <Typography variant="caption">8% increase</Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ bgcolor: 'warning.main', color: 'white', width: "23vw" }}>
-                <CardContent>
-                  <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Box>
-                      <Typography variant="h4" fontWeight="bold">₹2.4L</Typography>
-                      <Typography variant="body2" sx={{ opacity: 0.9 }}>Revenue</Typography>
-                    </Box>
-                    <AttachMoney sx={{ fontSize: 40, opacity: 0.3 }} />
-                  </Box>
-                  <Box display="flex" alignItems="center" mt={1}>
-                    <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
-                    <Typography variant="caption">23% increase</Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ bgcolor: 'info.main', color: 'white', width: "23.7vw" }}>
-                <CardContent>
-                  <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Box>
-                      <Typography variant="h4" fontWeight="bold">31%</Typography>
-                      <Typography variant="body2" sx={{ opacity: 0.9 }}>Conversion</Typography>
-                    </Box>
-                    <Assessment sx={{ fontSize: 40, opacity: 0.3 }} />
-                  </Box>
-                  <Box display="flex" alignItems="center" mt={1}>
-                    <TrendingDown sx={{ fontSize: 16, mr: 0.5 }} />
-                    <Typography variant="caption">3% decrease</Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={3} sx={{ alignContent: 'center' }}>
-            {/* Quick Actions / Features */}
+            <Grid container spacing={3} sx={{ alignContent: 'center' }}>
+              {/* Quick Actions / Features */}
 
 
-            {/* Upcoming Tasks */}
-            <Grid item xs={12} md={4}>
-              <Paper elevation={1} sx={{ p: 3, height: '100%' }}>
-                <Box display="flex" alignItems="center" mb={2}>
-                  <Schedule sx={{ mr: 1, color: 'primary.main' }} />
-                  <Typography variant="h6" fontWeight="bold">
-                    Today's Tasks
+              {/* Upcoming Tasks */}
+              <Grid item xs={12} md={4}>
+                <Paper elevation={1} sx={{ p: 3, height: '100%', width: '30vw' }}>
+                  <Box display="flex" alignItems="center" mb={2}>
+                    <Schedule sx={{ mr: 1, color: 'primary.main' }} />
+                    <Typography variant="h6" fontWeight="bold">
+                      Today's Tasks
+                    </Typography>
+                  </Box>
+                  <List dense>
+                    {upcomingTasks.map((task, index) => (
+                      <ListItem key={index} sx={{ px: 0 }}>
+                        <Box sx={{ width: '100%' }}>
+                          <Box display="flex" justifyContent="space-between" alignItems="center">
+                            <Typography variant="body2">{task.title}</Typography>
+                            <Chip
+                              label={task.priority}
+                              size="small"
+                              color={getPriorityColor(task.priority)}
+                              className='w-[5vw]'
+                            />
+                          </Box>
+                          <Typography variant="caption" color="text.secondary">
+                            {task.time}
+                          </Typography>
+                        </Box>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Paper>
+              </Grid>
+
+              {/* Recent Activities */}
+              <Grid item xs={12}>
+                <Paper elevation={1} sx={{ p: 3 }} className='w-[32vw]'>
+                  <Typography variant="h6" gutterBottom fontWeight="bold" className='text-left'>
+                    Recent Activities
                   </Typography>
-                </Box>
-                <List dense>
-                  {upcomingTasks.map((task, index) => (
-                    <ListItem key={index} sx={{ px: 0 }}>
-                      <Box sx={{ width: '100%' }}>
-                        <Box display="flex" justifyContent="space-between" alignItems="center">
-                          <Typography variant="body2">{task.title}</Typography>
-                          <Chip
-                            label={task.priority}
-                            size="small"
-                            color={getPriorityColor(task.priority)}
-                          />
+                  <List>
+                    {recentActivities.map((activity, index) => (
+                      <ListItem key={index} sx={{ px: 0 }}>
+                        <ListItemAvatar>
+                          <Avatar sx={{ bgcolor: 'grey.100' }}>
+                            {activity.icon}
+                          </Avatar>
+                        </ListItemAvatar>
+                        <Box sx={{ flexGrow: 1 }}>
+                          <Typography variant="subtitle2">{activity.title}</Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            {activity.desc}
+                          </Typography>
                         </Box>
                         <Typography variant="caption" color="text.secondary">
-                          {task.time}
+                          {activity.time}
                         </Typography>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Paper>
+              </Grid>
+
+              {/* Progress Overview */}
+              <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <Paper elevation={1} sx={{ p: 6 }} className='w-[30.5vw]'>
+                  <Typography variant="h6" gutterBottom fontWeight="bold" className='text-left'>
+                    Monthly Progress
+                  </Typography>
+                  <Box sx={{ mt: 3 }}>
+                    <Box sx={{ mb: 3 }}>
+                      <Box display="flex" justifyContent="space-between" mb={1}>
+                        <Typography variant="body2">Lead Conversion</Typography>
+                        <Typography variant="body2" fontWeight="bold">68%</Typography>
                       </Box>
-                    </ListItem>
-                  ))}
-                </List>
-              </Paper>
-            </Grid>
-
-            {/* Recent Activities */}
-            <Grid item xs={12}>
-              <Paper elevation={1} sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom fontWeight="bold">
-                  Recent Activities
-                </Typography>
-                <List>
-                  {recentActivities.map((activity, index) => (
-                    <ListItem key={index} sx={{ px: 0 }}>
-                      <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: 'grey.100' }}>
-                          {activity.icon}
-                        </Avatar>
-                      </ListItemAvatar>
-                      <Box sx={{ flexGrow: 1 }}>
-                        <Typography variant="subtitle2">{activity.title}</Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {activity.desc}
-                        </Typography>
+                      <LinearProgress variant="determinate" value={68} sx={{ height: 8, borderRadius: 4 }} />
+                    </Box>
+                    <Box sx={{ mb: 3 }}>
+                      <Box display="flex" justifyContent="space-between" mb={1}>
+                        <Typography variant="body2">Revenue Target</Typography>
+                        <Typography variant="body2" fontWeight="bold">82%</Typography>
                       </Box>
-                      <Typography variant="caption" color="text.secondary">
-                        {activity.time}
-                      </Typography>
-                    </ListItem>
-                  ))}
-                </List>
-              </Paper>
-            </Grid>
+                      <LinearProgress variant="determinate" value={82} color="success" sx={{ height: 8, borderRadius: 4 }} />
+                    </Box>
+                    <Box sx={{ mb: 3 }}>
+                      <Box display="flex" justifyContent="space-between" mb={1}>
+                        <Typography variant="body2">Client Satisfaction</Typography>
+                        <Typography variant="body2" fontWeight="bold">91%</Typography>
+                      </Box>
+                      <LinearProgress variant="determinate" value={91} color="warning" sx={{ height: 8, borderRadius: 4 }} />
+                    </Box>
+                  </Box>
+                </Paper>
+              </Grid>
 
-            {/* Progress Overview */}
-            <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <Paper elevation={1} sx={{ p: 6 }}>
-                <Typography variant="h6" gutterBottom fontWeight="bold">
-                  Monthly Progress
-                </Typography>
-                <Box sx={{ mt: 3 }}>
-                  <Box sx={{ mb: 3 }}>
-                    <Box display="flex" justifyContent="space-between" mb={1}>
-                      <Typography variant="body2">Lead Conversion</Typography>
-                      <Typography variant="body2" fontWeight="bold">68%</Typography>
-                    </Box>
-                    <LinearProgress variant="determinate" value={68} sx={{ height: 8, borderRadius: 4 }} />
-                  </Box>
-                  <Box sx={{ mb: 3 }}>
-                    <Box display="flex" justifyContent="space-between" mb={1}>
-                      <Typography variant="body2">Revenue Target</Typography>
-                      <Typography variant="body2" fontWeight="bold">82%</Typography>
-                    </Box>
-                    <LinearProgress variant="determinate" value={82} color="success" sx={{ height: 8, borderRadius: 4 }} />
-                  </Box>
-                  <Box sx={{ mb: 3 }}>
-                    <Box display="flex" justifyContent="space-between" mb={1}>
-                      <Typography variant="body2">Client Satisfaction</Typography>
-                      <Typography variant="body2" fontWeight="bold">91%</Typography>
-                    </Box>
-                    <LinearProgress variant="determinate" value={91} color="warning" sx={{ height: 8, borderRadius: 4 }} />
-                  </Box>
-                </Box>
-              </Paper>
+              {/* Quick Stats */}
+              <Grid item xs={12} md={6}   >
+                <Paper elevation={1} sx={{ p: 3 }} className='w-[95.5vw] border-radius-5'>
+                  <Typography variant="h6" gutterBottom fontWeight="bold"  >
+                    Performance Metrics
+                  </Typography>
+                  <Grid container spacing={2} sx={{ mt: 1, display: 'flex', justifyContent: 'center', }}  >
+                    <Grid item xs={6} >
+                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }} >
+                        <Typography variant="h5" color="primary" fontWeight="bold">24</Typography>
+                        <Typography variant="body2" color="text.secondary">New Leads This Week</Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }}>
+                        <Typography variant="h5" color="success.main" fontWeight="bold">08</Typography>
+                        <Typography variant="body2" color="text.secondary">Deals Closed</Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }}>
+                        <Typography variant="h5" color="warning.main" fontWeight="bold">16</Typography>
+                        <Typography variant="body2" color="text.secondary">Pending Follow-ups</Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }}>
+                        <Typography variant="h5" color="info.main" fontWeight="bold">92%</Typography>
+                        <Typography variant="body2" color="text.secondary">Response Rate</Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
             </Grid>
-
-            {/* Quick Stats */}
-            <Grid item xs={12} md={6}   >
-              <Paper elevation={1} sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom fontWeight="bold">
-                  Performance Metrics
-                </Typography>
-                <Grid container spacing={2} sx={{ mt: 1 }}>
-                  <Grid item xs={6}>
-                    <Box textAlign="center" p={9} bgcolor="grey.50" borderRadius={2}>
-                      <Typography variant="h5" color="primary" fontWeight="bold">24</Typography>
-                      <Typography variant="body2" color="text.secondary">New Leads This Week</Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Box textAlign="center" p={9} bgcolor="grey.50" borderRadius={2}>
-                      <Typography variant="h5" color="success.main" fontWeight="bold">8</Typography>
-                      <Typography variant="body2" color="text.secondary">Deals Closed</Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Box textAlign="center" p={9} bgcolor="grey.50" borderRadius={2}>
-                      <Typography variant="h5" color="warning.main" fontWeight="bold">16</Typography>
-                      <Typography variant="body2" color="text.secondary">Pending Follow-ups</Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Box textAlign="center" p={9} bgcolor="grey.50" borderRadius={2}>
-                      <Typography variant="h5" color="info.main" fontWeight="bold">92%</Typography>
-                      <Typography variant="body2" color="text.secondary">Response Rate</Typography>
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
-    </Box>
+          </Box>
+        </Container>
+      </Box>
+    </Background>
   );
 };
 

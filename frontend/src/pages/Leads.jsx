@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // 17-08 update
+import styled from 'styled-components';
 import {
     Container,
     Paper,
@@ -64,7 +65,7 @@ const Leads = () => {
     const [filterStatus, setFilterStatus] = useState('all');
     const [filterSource, setFilterSource] = useState('all');
     const [tabValue, setTabValue] = useState(0);
-    const [loading , setLoading] = useState(false); // just remove loading
+    const [loading, setLoading] = useState(false); // just remove loading
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
     // Form data
@@ -238,16 +239,66 @@ const Leads = () => {
         converted: leads.filter(l => l.status === 'Converted').length,
     };
 
+    // button style
+    const StyledWrapper = styled.div`
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1vw 1.1vw;
+    gap: 2px;
+    height: 2.2vw;
+    width: 85px;
+    border: none;
+    background: #a549da3d;
+    border-radius: 0.5vw;
+    cursor: pointer;
+  }
+
+  .lable {
+    line-height: 22px;
+    font-size: 1vw;
+    color: #A649DA;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+  }
+
+  .button:hover {
+    background: #a549da62;
+  }
+
+  .button:hover .svg-icon {
+    animation: lr 1s linear infinite;
+  }
+
+  @keyframes lr {
+    0% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-1px);
+    }
+
+    75% {
+      transform: translateX(1px);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }`;
+
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Container maxWidth="xl">
                 <Box sx={{ py: 3 }}>
                     {/* Header */}
-                    <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-                        <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src="https://i.pinimg.com/736x/76/bf/92/76bf929f50301acec6eaa8a7eeb5a21a.jpg" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
-                            <p>Leads Management</p>
-                        </Typography>
+                    <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} sx={{ p: 2, bgcolor: '#fff', borderRadius: "10px", paddingRight: '3vw', }} >
+                        <div className='flex items-center'>
+                            <img src="./public/s-logo.png" style={{ width: '5vw', height: '5vw', marginRight: '10px' }} alt="" />
+                            <h1 className='text-3xl font-bold' >Leads Management</h1>
+                        </div>
                         <Button
                             variant="contained"
                             startIcon={<Add />}
@@ -327,23 +378,10 @@ const Leads = () => {
                         </Grid>
                     </Grid>
 
-                    {/* Tabs */}
-                    <Paper sx={{ mb: 3 }}>
-                        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
-                            <Tab label={`All Leads (${leads.length})`} style={{ width: '17vw' }} />
-                            <Tab
-                                label={
-                                    <Badge badgeContent={leads.filter(l => l.followUpDate && new Date(l.followUpDate).toDateString() === new Date().toDateString()).length} color="error" style={{ width: '17vw' }} >
-                                        Today's Follow-ups
-                                    </Badge>
-                                }
-                            />
-                            <Tab label={`Interested (${stats.interested})`} style={{ width: '17vw' }} />
-                        </Tabs>
-                    </Paper>
 
-                    {/* Filters */}
-                    <Paper sx={{ p: 2, mb: 3 }}>
+                    {/* Tabs */}
+                    <Paper sx={{ p: 2, mb: 1, display: 'flex', justifyContent: 'space-between' }}>
+                        {/* Filters */}
                         <Grid container spacing={2} alignItems="center">
                             <Grid item xs={12} md={4}>
                                 <TextField
@@ -352,7 +390,7 @@ const Leads = () => {
                                     placeholder="Search by name or phone..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    style={{ width: '25vw' }}
+                                    style={{ width: '18vw' }}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start"  >
@@ -369,7 +407,7 @@ const Leads = () => {
                                     label="Filter by Status"
                                     value={filterStatus}
                                     onChange={(e) => setFilterStatus(e.target.value)}
-                                    style={{ width: '13vw' }}
+                                    style={{ width: '12vw' }}
                                 >
                                     <MenuItem value="all" >All Status</MenuItem>
                                     {statusOptions.map(option => (
@@ -386,7 +424,7 @@ const Leads = () => {
                                     label="Filter by Source"
                                     value={filterSource}
                                     onChange={(e) => setFilterSource(e.target.value)}
-                                    style={{ width: '13vw' }}
+                                    style={{ width: '12vw' }}
                                 >
                                     <MenuItem value="all">All Sources</MenuItem>
                                     {referenceSources.map(source => (
@@ -400,13 +438,27 @@ const Leads = () => {
                                     variant="outlined"
                                     startIcon={<Refresh />}
                                     onClick={fetchLeads}
-                                    style={{ width: '12vw', height: '7.5vh' }}
+                                    style={{ width: '10vw', height: '7.5vh' }}
                                 >
                                     Refresh
                                 </Button>
                             </Grid>
                         </Grid>
+                        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
+                            <Tab label={`All Leads (${leads.length})`} style={{ width: '12vw', }} />
+                            <Tab
+                                label={
+                                    <Badge badgeContent={leads.filter(l => l.followUpDate && new Date(l.followUpDate).toDateString() === new Date().toDateString()).length} color="error" style={{ width: '12vw' }} >
+                                        Today's Follow-ups
+                                    </Badge>
+                                }
+                            />
+                            <Tab label={`Interested (${stats.interested})`} style={{ width: '12vw' }} />
+                        </Tabs>
+
                     </Paper>
+
+
 
                     {/* Table */}
                     <TableContainer component={Paper}>
@@ -434,13 +486,16 @@ const Leads = () => {
                                             </Box>
                                         </TableCell>
                                         <TableCell>
-                                            <Chip label={lead.referenceSource} size="small" />
+                                            <Chip label={lead.referenceSource} size="small"
+                                                style={{ width: '6vw', borderRadius: '5px', fontSize: '0.8rem', }}
+                                            />
                                         </TableCell>
                                         <TableCell>
                                             <Chip
                                                 label={lead.status}
                                                 size="small"
                                                 color={getStatusColor(lead.status)}
+                                                style={{ width: '6vw', borderRadius: '5px', fontSize: '0.8rem', }}
                                             />
                                         </TableCell>
                                         <TableCell>
@@ -454,20 +509,22 @@ const Leads = () => {
                                         <TableCell>
                                             {new Date(lead.date).toLocaleDateString()}
                                         </TableCell>
-                                        <TableCell align="center">
-                                            <IconButton
-                                                size="small"
-                                                color="primary"
+                                        <TableCell align="center" style={{ display: 'flex', justifyContent: 'center', gap: '1vw' }}>
+                                            <StyledWrapper>
+                                                <button className="button"
                                                 onClick={() => handleOpenDialog(lead)}
-                                            >
-                                                <Edit />
-                                            </IconButton>
+                                                >
+                                                    <svg className="svg-icon" fill="none" height={24} viewBox="0 0 24 24" width={24} xmlns="http://www.w3.org/2000/svg"><g stroke="#a649da" strokeLinecap="round" strokeWidth={2}><path d="m20 20h-16" /><path clipRule="evenodd" d="m14.5858 4.41422c.781-.78105 2.0474-.78105 2.8284 0 .7811.78105.7811 2.04738 0 2.82843l-8.28322 8.28325-3.03046.202.20203-3.0304z" fillRule="evenodd" /></g></svg>
+                                                    <span className="lable">Edit</span>
+                                                </button>
+                                            </StyledWrapper>
                                             <IconButton
                                                 size="small"
                                                 color="error"
+                                                style={{ backgroundColor: '#e3b2b56d', width: '6vw', height: '4vh', borderRadius: '5px', fontSize: '0.8rem', fontWeight: 'bold' }}
                                                 onClick={() => handleDelete(lead._id)}
                                             >
-                                                <Delete />
+                                                Delete
                                             </IconButton>
                                         </TableCell>
                                     </TableRow>
@@ -475,7 +532,7 @@ const Leads = () => {
                                 {filteredLeads.length === 0 && (
                                     <TableRow>
                                         <TableCell colSpan={8} align="center">
-                                            No leads found
+                                            No leads found !!
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -505,7 +562,7 @@ const Leads = () => {
                                         label="Phone Number"
                                         value={formData.phoneNumber}
                                         onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                                        
+
                                     />
                                 </Grid>
                                 <Grid item xs={12}>

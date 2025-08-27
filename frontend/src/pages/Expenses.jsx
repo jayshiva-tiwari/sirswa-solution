@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import FileButton from '../components/FileButton'
+import FileButtonExcel from '../components/FileButtonExcel'
+import styled from 'styled-components';
 import {
     Container,
     Paper,
@@ -454,20 +457,70 @@ const Expenses = () => {
         expense: data.totalExpense
     }));
 
+    // button style
+    // button style
+    const StyledWrapper = styled.div`
+      .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1vw 1.1vw;
+        gap: 2px;
+        height: 2.2vw;
+        width: 85px;
+        border: none;
+        background: #a549da3d;
+        border-radius: 0.5vw;
+        cursor: pointer;
+      }
+    
+      .lable {
+        line-height: 22px;
+        font-size: 1vw;
+        color: #A649DA;
+        font-family: sans-serif;
+        letter-spacing: 1px;
+      }
+    
+      .button:hover {
+        background: #a549da62;
+      }
+    
+      .button:hover .svg-icon {
+        animation: lr 1s linear infinite;
+      }
+    
+      @keyframes lr {
+        0% {
+          transform: translateX(0);
+        }
+    
+        25% {
+          transform: translateX(-1px);
+        }
+    
+        75% {
+          transform: translateX(1px);
+        }
+    
+        100% {
+          transform: translateX(0);
+        }
+      }`;
     // Rest of your component remains exactly the same...
     // (All the JSX for rendering UI)
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{ bgcolor: '#d9d5ffa2' }}>
                 <Box sx={{ py: 3 }}>
                     {/* Header */}
-                    <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+                    <Box display="flex" sx={{ p: 2, mb: 3, bgcolor: '#ffffffa7', borderRadius: '10px', paddingRight: '2vw', paddingLeft: '1vw' }} justifyContent="space-between" alignItems="center" mb={3}>
                         <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src="https://i.pinimg.com/736x/76/bf/92/76bf929f50301acec6eaa8a7eeb5a21a.jpg" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
+                            <img src="./public/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
                             <span class="relative text-4xl font-bold text-gray-800 group">
-                                <span class="relative z-10 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-cyan-500">
-                                    <span class="group-hover:drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+                                <span class="relative z-10 group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-cyan-500">
+                                    <span class="group-hover:drop-shadow-gray-800">
                                         <a href="/dashboard" className='' style={{ textDecoration: 'none', color: 'inherit' }}  ><p>Expense & Profit Tracking</p></a>
                                     </span>
                                 </span>
@@ -475,19 +528,24 @@ const Expenses = () => {
                             </span>
                         </Typography>
                         <Box display="flex" gap={2}>
-                            <Button
-                                variant="outlined"
-                                startIcon={<PictureAsPdf />}
+
+                            <Button className='before:hidden hover:before:flex before:justify-center before:items-center before:h-6 before:w-[7vw] before:text-[0.8vw] before:px-2 before:content-["Export-PDF"] before:bg-white dark:before:bg-gray-600 dark:before:text-white before:text-gray-600 before:bg-opacity-50 before:absolute before:-bottom-7 before:rounded-lg before:rounded-r-lg before:transition-all before:duration-300'
+                                // variant="outlined"
+                                style={{ width: '7vw', height: '3vw', borderRadius: '0.5vw' }}
                                 onClick={exportToPDF}
                             >
-                                Export PDF
+                                <FileButton
+                                    onClick={exportToPDF}
+                                ></FileButton>
                             </Button>
-                            <Button
-                                variant="outlined"
-                                startIcon={<TableChart />}
+                            <Button className='before:hidden hover:before:flex before:justify-center before:items-center before:h-6 before:w-[7vw] before:text-[0.7vw] before:px-2 before:content-["Export-Excel"] before:bg-white dark:before:bg-gray-600 dark:before:text-white before:text-gray-600 before:bg-opacity-50 before:absolute before:-bottom-7 before:rounded-lg before:rounded-r-lg before:transition-all before:duration-300'
+                                // variant="outlined"
+                                style={{ width: '7vw', height: '3vw', borderRadius: '0.5vw' }}
                                 onClick={exportToCSV}
                             >
-                                Export CSV
+                                <FileButtonExcel
+                                    onClick={exportToCSV}
+                                ></FileButtonExcel>
                             </Button>
                             <Button
                                 variant="contained"
@@ -505,135 +563,145 @@ const Expenses = () => {
                         </Box>
                     </Box>
 
-                    {/* Financial Overview Cards */}
-                    <Grid container spacing={3} mb={3}>
-                        <Grid item xs={12} sm={6} md={3}>
-                            <Card sx={{ bgcolor: 'success.50' }}>
-                                <CardContent>
-                                    <Box display="flex" alignItems="center" justifyContent="space-between">
-                                        <Box>
-                                            <Typography color="textSecondary" gutterBottom variant="body2">
-                                                Total Income
-                                            </Typography>
-                                            <Typography variant="h5" color="success.main">
-                                                {formatCurrency(summary.totalIncome)}
-                                            </Typography>
-                                        </Box>
-                                        <TrendingUp color="success" sx={{ fontSize: 40, opacity: 0.3 }} />
-                                    </Box>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3}>
-                            <Card sx={{ bgcolor: 'error.50' }}>
-                                <CardContent>
-                                    <Box display="flex" alignItems="center" justifyContent="space-between">
-                                        <Box>
-                                            <Typography color="textSecondary" gutterBottom variant="body2">
-                                                Total Expenses
-                                            </Typography>
-                                            <Typography variant="h5" color="error.main">
-                                                {formatCurrency(summary.totalExpenses)}
-                                            </Typography>
-                                        </Box>
-                                        <TrendingDown color="error" sx={{ fontSize: 40, opacity: 0.3 }} />
-                                    </Box>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3}>
-                            <Card sx={{ bgcolor: summary.profit >= 0 ? 'primary.50' : 'warning.50' }}>
-                                <CardContent>
-                                    <Box display="flex" alignItems="center" justifyContent="space-between">
-                                        <Box>
-                                            <Typography color="textSecondary" gutterBottom variant="body2">
-                                                Net Profit
-                                            </Typography>
-                                            <Typography
-                                                variant="h5"
-                                                color={summary.profit >= 0 ? 'primary.main' : 'warning.main'}
-                                            >
-                                                {formatCurrency(summary.profit)}
-                                            </Typography>
-                                        </Box>
-                                        <Assessment
-                                            color={summary.profit >= 0 ? 'primary' : 'warning'}
-                                            sx={{ fontSize: 40, opacity: 0.3 }}
-                                        />
-                                    </Box>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3}>
-                            <Card sx={{ bgcolor: 'info.50' }}>
-                                <CardContent>
-                                    <Box display="flex" alignItems="center" justifyContent="space-between">
-                                        <Box>
-                                            <Typography color="textSecondary" gutterBottom variant="body2">
-                                                Profit Margin
-                                            </Typography>
-                                            <Typography variant="h5" color="info.main">
-                                                {summary.profitMargin}%
-                                            </Typography>
-                                        </Box>
-                                        <AccountBalance color="info" sx={{ fontSize: 40, opacity: 0.3 }} />
-                                    </Box>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    </Grid>
+                    <Grid sx={{ display: 'flex', bgcolor: '#ffffffa7', borderRadius: '10px', padding:'3vw', }} container spacing={3} mb={3}>
+                        {/* Financial Overview Cards */}
+                        <Grid container spacing={3} mb={3}>
 
-                    {/* Charts */}
-                    <Grid container spacing={3} mb={3}>
-                        <Grid item xs={12} md={6}>
-                            <Paper sx={{ p: 3 }}>
-                                <Typography variant="h6" gutterBottom>
-                                    Expense Breakdown by Category
-                                </Typography>
-                                {pieChartData.length > 0 ? (
-                                    <ResponsiveContainer width="100%" height={300}>
-                                        <PieChart>
-                                            <Pie
-                                                data={pieChartData}
-                                                cx="50%"
-                                                cy="50%"
-                                                labelLine={false}
-                                                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                                                outerRadius={80}
-                                                fill="#8884d8"
-                                                dataKey="value"
-                                            >
-                                                {pieChartData.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                                ))}
-                                            </Pie>
-                                            <ChartTooltip formatter={(value) => formatCurrency(value)} />
-                                        </PieChart>
-                                    </ResponsiveContainer>
-                                ) : (
-                                    <Typography color="textSecondary" align="center">No data available</Typography>
-                                )}
-                            </Paper>
+                            <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '2vw', }}>
+                                <Grid item xs={12} sm={6} md={3}>
+                                    <Card sx={{ bgcolor: 'success.50',  width: '18vw', height: '10vw' }}>
+                                        <CardContent>
+                                            <Box display="flex" alignItems="center" justifyContent="space-between">
+                                                <Box>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                        Total Income
+                                                    </Typography>
+                                                    <Typography variant="h5" color="success.main" sx={{ fontSize: '3vw', fontWeight: 'bolder', paddingTop: '1vw' }}>
+                                                        {formatCurrency(summary.totalIncome)}
+                                                    </Typography>
+                                                </Box>
+                                                <TrendingUp color="success" sx={{ fontSize: 90, opacity: 0.3 ,}} />
+                                            </Box>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                <Grid item xs={12} sm={6} md={3}>
+                                    <Card sx={{ bgcolor: 'error.50', width: '18vw', height: '10vw'}}>
+                                        <CardContent>
+                                            <Box display="flex" alignItems="center" justifyContent="space-between">
+                                                <Box>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2"sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                        Total Expenses
+                                                    </Typography>
+                                                    <Typography variant="h5" color="error.main" sx={{ fontSize: '3vw', fontWeight: 'bolder', paddingTop: '1vw' }}>
+                                                        {formatCurrency(summary.totalExpenses)}
+                                                    </Typography>
+                                                </Box>
+                                                <TrendingDown color="error" sx={{ fontSize: 90, opacity: 0.3 }} />
+                                            </Box>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+
+                            <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '2vw' }}>
+                                <Grid item xs={12} sm={6} md={3}>
+                                    <Card sx={{ bgcolor: summary.profit >= 0 ? 'primary.50' : 'warning.50',width: '18vw', height: '10vw' }}>
+                                        <CardContent>
+                                            <Box display="flex" alignItems="center" justifyContent="space-between">
+                                                <Box>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                        Net Profit
+                                                    </Typography>
+                                                    <Typography
+                                                        variant="h5"
+                                                        color={summary.profit >= 0 ? 'primary.main' : 'warning.main'}
+                                                        sx={{ fontSize: '4vw', fontWeight: 'bolder',paddingTop: '1vw' }}
+                                                    >
+                                                        {formatCurrency(summary.profit)}
+                                                    </Typography>
+                                                </Box>
+                                                <Assessment
+                                                    color={summary.profit >= 0 ? 'primary' : 'warning'}
+                                                    sx={{ fontSize: 90, opacity: 0.3 }}
+                                                />
+                                            </Box>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+
+                                <Grid item xs={12} sm={6} md={3}>
+                                    <Card sx={{ bgcolor: 'info.50', width: '18vw', height: '10vw' }}>
+                                        <CardContent>
+                                            <Box display="flex" alignItems="center" justifyContent="space-between">
+                                                <Box>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                        Profit Margin
+                                                    </Typography>
+                                                    <Typography variant="h5" color="info.main" sx={{ fontSize: '3.3vw', fontWeight: 'bolder', paddingTop: '1vw'  }}>
+                                                        {summary.profitMargin}%
+                                                    </Typography>
+                                                </Box>
+                                                <AccountBalance color="info" sx={{ fontSize: 90, opacity: 0.3 }} />
+                                            </Box>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Paper sx={{ p: 3 }}>
-                                <Typography variant="h6" gutterBottom>
-                                    Monthly Expense Trend
-                                </Typography>
-                                {barChartData.length > 0 ? (
-                                    <ResponsiveContainer width="100%" height={300}>
-                                        <BarChart data={barChartData}>
-                                            <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="month" />
-                                            <YAxis />
-                                            <ChartTooltip formatter={(value) => formatCurrency(value)} />
-                                            <Bar dataKey="expense" fill="#8b5cf6" />
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                ) : (
-                                    <Typography color="textSecondary" align="center">No data available</Typography>
-                                )}
-                            </Paper>
+                        {/* Charts */}
+                        <Grid container spacing={3} mb={3} sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', gap: '9vw' }}>
+                            <Grid item xs={12} md={6} sx={{  }}>
+                                <Paper sx={{ p: 3 , width:'130%' }}>
+                                    <Typography variant="h6" gutterBottom>
+                                        Expense Breakdown by Category
+                                    </Typography>
+                                    {pieChartData.length > 0 ? (
+                                        <ResponsiveContainer width="100%" height={250}>
+                                            <PieChart>
+                                                <Pie
+                                                    data={pieChartData}
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    labelLine={false}
+                                                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                                    outerRadius={80}
+                                                    fill="#8884d8"
+                                                    dataKey="value"
+                                                >
+                                                    {pieChartData.map((entry, index) => (
+                                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                                    ))}
+                                                </Pie>
+                                                <ChartTooltip formatter={(value) => formatCurrency(value)} />
+                                            </PieChart>
+                                        </ResponsiveContainer>
+                                    ) : (
+                                        <Typography color="textSecondary" align="center">No data available</Typography>
+                                    )}
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12} md={6} sx={{}}>
+                                <Paper sx={{ p: 3 }}>
+                                    <Typography variant="h6" gutterBottom>
+                                        Monthly Expense Trend
+                                    </Typography>
+                                    {barChartData.length > 0 ? (
+                                        <ResponsiveContainer width="100%" height={250}>
+                                            <BarChart data={barChartData}>
+                                                <CartesianGrid strokeDasharray="3 3" />
+                                                <XAxis dataKey="month" />
+                                                <YAxis />
+                                                <ChartTooltip formatter={(value) => formatCurrency(value)} />
+                                                <Bar dataKey="expense" fill="#8b5cf6" />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    ) : (
+                                        <Typography color="textSecondary" align="center">No data available</Typography>
+                                    )}
+                                </Paper>
+                            </Grid>
                         </Grid>
                     </Grid>
 
@@ -747,13 +815,14 @@ const Expenses = () => {
                                             </TableCell>
                                             <TableCell>{expense.receiptNumber || '-'}</TableCell>
                                             <TableCell align="center">
-                                                <IconButton
-                                                    size="small"
-                                                    color="primary"
-                                                    onClick={() => handleOpenDialog(expense)}
-                                                >
-                                                    <Edit />
-                                                </IconButton>
+                                                <StyledWrapper>
+                                                    <button className="button"
+                                                        onClick={() => handleOpenDialog(expense)}
+                                                    >
+                                                        <svg className="svg-icon" fill="none" height={24} viewBox="0 0 24 24" width={24} xmlns="http://www.w3.org/2000/svg"><g stroke="#a649da" strokeLinecap="round" strokeWidth={2}><path d="m20 20h-16" /><path clipRule="evenodd" d="m14.5858 4.41422c.781-.78105 2.0474-.78105 2.8284 0 .7811.78105.7811 2.04738 0 2.82843l-8.28322 8.28325-3.03046.202.20203-3.0304z" fillRule="evenodd" /></g></svg>
+                                                        <span className="lable">Edit</span>
+                                                    </button>
+                                                </StyledWrapper>
                                                 <IconButton
                                                     size="small"
                                                     color="error"

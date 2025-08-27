@@ -329,7 +329,7 @@ const Clients = () => {
                     {/* Header */}
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
                         <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src="https://i.pinimg.com/736x/76/bf/92/76bf929f50301acec6eaa8a7eeb5a21a.jpg" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
+                            <img src="./public/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
                             <p>Client & Project Management</p>
                         </Typography>
                         <Button
@@ -600,34 +600,19 @@ const Clients = () => {
                                                 size="small"
                                             />
                                         </TableCell>
-                                        <TableCell align="center">
-                                            <Tooltip title="Add Payment">
-                                                <IconButton
-                                                    size="small"
-                                                    color="success"
-                                                    onClick={() => handleOpenPaymentDialog(client)}
-                                                >
-                                                    <Payment />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title="Edit">
-                                                <IconButton
-                                                    size="small"
-                                                    color="primary"
-                                                    onClick={() => handleOpenDialog(client)}
-                                                >
-                                                    <Edit />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Tooltip title="Delete">
-                                                <IconButton
-                                                    size="small"
-                                                    color="error"
-                                                    onClick={() => handleDelete(client._id)}
-                                                >
-                                                    <Delete />
-                                                </IconButton>
-                                            </Tooltip>
+                                        <TableCell align="center" sx={{display:'flex', justifyContent:'center', alignItems: 'center', height:'9vw', gap:'0.5vw', flexDirection: 'column'}}>
+                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[6vw] rounded-[0.5vw] bg-emerald-400/60 ' onClick={() => handleOpenPaymentDialog(client)} >
+                                                <Payment className=' text-emerald-50 ' />
+                                                <p className='text-[0.8vw]' >Payment</p>
+                                            </button>
+                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[4vw] rounded-[0.5vw] bg-fuchsia-300/60 ' onClick={() => handleOpenDialog(client)} >
+                                                <Edit className=' text-fuchsia-50 text-[0.9vw]' />
+                                                <p className='text-[0.8vw]' >Edit</p>
+                                            </button>
+                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[5vw] rounded-[0.5vw] bg-pink-600/60 ' onClick={() => handleDelete(client._id)} >
+                                                <Delete className=' text-red-50 ' />
+                                                <p className='text-[0.8vw]' >Delete</p>
+                                            </button>
                                         </TableCell>
                                     </TableRow>
                                 ))}
