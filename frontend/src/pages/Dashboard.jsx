@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader'; // Import the Loader component
 // import Landing from '../components/Landing'; // Import the Landing component
 import Background from '../components/Background';
+import TodayTasks from '../components/TodayTasks';
 import {
   Container,
   Paper,
@@ -125,23 +126,6 @@ const Dashboard = () => {
     { icon: <Task color="info" />, title: 'Follow-up scheduled', time: '2 days ago', desc: 'Meeting with potential client' },
   ];
 
-  // Mock data for upcoming tasks
-  const upcomingTasks = [
-    { title: 'Call Mr. Sharma', time: '10:00 AM', priority: 'high' },
-    { title: 'Send proposal to ABC Corp', time: '2:00 PM', priority: 'medium' },
-    { title: 'Team meeting', time: '4:00 PM', priority: 'low' },
-    { title: 'Review monthly report', time: '5:30 PM', priority: 'medium' },
-  ];
-
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'high': return 'error';
-      case 'medium': return 'warning';
-      case 'low': return 'success';
-      default: return 'default';
-    }
-  };
-
   return (
     <Background gradient="from-indigo-50 via-violet-50 to-white" patternColor="#4f46e5">
       <Box sx={{ minHeight: '100vh', pb: 4 }}>
@@ -152,7 +136,7 @@ const Dashboard = () => {
               <Box display="flex" justifyContent="space-between" alignItems="center">
                 <div className='flex justify-between items-center'>
                   <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                    <img src="./public/s-logo.png" style={{ width: '5vw', height: '5vw', marginRight: '10px' }} alt="" />
+                    <img src="/s-logo.png" style={{ width: '5vw', height: '5vw', marginRight: '10px' }} alt="" />
                   </Typography>
                   <div className='flex flex-col items-start'>
                     <h2 className='font-bold text-2xl w-full text-left'>Welcome to Dashboard</h2>
@@ -317,117 +301,13 @@ const Dashboard = () => {
                   </button>
                 </div>
               </div>
-
-            {/* Stats Cards */}
-            <Grid container spacing={2} sx={{ mb: 3 }}>
-              <Grid item xs={12} sm={6} md={3}  >
-                <Card sx={{ bgcolor: '#2563EBb3', color: 'white', width: "23vw" }}>
-                  <CardContent>
-                    <Box display="flex" justifyContent="space-between" alignItems="center">
-                      <Box>
-                        <Typography variant="h4" fontWeight="bold">156</Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Total Leads</Typography>
-                      </Box>
-                      <People sx={{ fontSize: 40, opacity: 0.3 }} />
-                    </Box>
-                    <Box display="flex" alignItems="center" mt={1}>
-                      <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
-                      <Typography variant="caption">12% increase</Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={3}>
-                <Card sx={{ bgcolor: '#2E7D32b3', color: 'white', width: "23vw" }}>
-                  <CardContent>
-                    <Box display="flex" justifyContent="space-between" alignItems="center">
-                      <Box>
-                        <Typography variant="h4" fontWeight="bold">48</Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Active Clients</Typography>
-                      </Box>
-                      <Groups sx={{ fontSize: 40, opacity: 0.3 }} />
-                    </Box>
-                    <Box display="flex" alignItems="center" mt={1}>
-                      <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
-                      <Typography variant="caption">8% increase</Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={3}>
-                <Card sx={{ bgcolor: '#ED6C02b3', color: 'white', width: "23vw" }}>
-                  <CardContent>
-                    <Box display="flex" justifyContent="space-between" alignItems="center">
-                      <Box>
-                        <Typography variant="h4" fontWeight="bold">₹2.4L</Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Revenue</Typography>
-                      </Box>
-                      <AttachMoney sx={{ fontSize: 40, opacity: 0.3 }} />
-                    </Box>
-                    <Box display="flex" alignItems="center" mt={1}>
-                      <TrendingUp sx={{ fontSize: 16, mr: 0.5 }} />
-                      <Typography variant="caption">23% increase</Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={3}>
-                <Card sx={{ bgcolor: '#0288D1b3', color: 'white', width: "23.7vw" }}>
-                  <CardContent>
-                    <Box display="flex" justifyContent="space-between" alignItems="center">
-                      <Box>
-                        <Typography variant="h4" fontWeight="bold">31%</Typography>
-                        <Typography variant="body2" sx={{ opacity: 0.9 }}>Conversion</Typography>
-                      </Box>
-                      <Assessment sx={{ fontSize: 40, opacity: 0.3 }} />
-                    </Box>
-                    <Box display="flex" alignItems="center" mt={1}>
-                      <TrendingDown sx={{ fontSize: 16, mr: 0.5 }} />
-                      <Typography variant="caption">3% decrease</Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
+            
             <Grid container spacing={3} sx={{ alignContent: 'center' }}>
               {/* Quick Actions / Features */}
 
 
-              {/* Upcoming Tasks */}
-              <Grid item xs={12} md={4}>
-                <Paper elevation={1} sx={{ p: 3, height: '100%', width: '30vw' }}>
-                  <Box display="flex" alignItems="center" mb={2}>
-                    <Schedule sx={{ mr: 1, color: 'primary.main' }} />
-                    <Typography variant="h6" fontWeight="bold">
-                      Today's Tasks
-                    </Typography>
-                  </Box>
-                  <List dense>
-                    {upcomingTasks.map((task, index) => (
-                      <ListItem key={index} sx={{ px: 0 }}>
-                        <Box sx={{ width: '100%' }}>
-                          <Box display="flex" justifyContent="space-between" alignItems="center">
-                            <Typography variant="body2">{task.title}</Typography>
-                            <Chip
-                              label={task.priority}
-                              size="small"
-                              color={getPriorityColor(task.priority)}
-                              className='w-[5vw]'
-                            />
-                          </Box>
-                          <Typography variant="caption" color="text.secondary">
-                            {task.time}
-                          </Typography>
-                        </Box>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Paper>
-              </Grid>
+              {/* Today Tasks */}
+              <TodayTasks />
 
               {/* Recent Activities */}
               <Grid item xs={12}>
@@ -455,38 +335,6 @@ const Dashboard = () => {
                       </ListItem>
                     ))}
                   </List>
-                </Paper>
-              </Grid>
-
-              {/* Progress Overview */}
-              <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <Paper elevation={1} sx={{ p: 6 }} className='w-[30.5vw]'>
-                  <Typography variant="h6" gutterBottom fontWeight="bold" className='text-left'>
-                    Monthly Progress
-                  </Typography>
-                  <Box sx={{ mt: 3 }}>
-                    <Box sx={{ mb: 3 }}>
-                      <Box display="flex" justifyContent="space-between" mb={1}>
-                        <Typography variant="body2">Lead Conversion</Typography>
-                        <Typography variant="body2" fontWeight="bold">68%</Typography>
-                      </Box>
-                      <LinearProgress variant="determinate" value={68} sx={{ height: 8, borderRadius: 4 }} />
-                    </Box>
-                    <Box sx={{ mb: 3 }}>
-                      <Box display="flex" justifyContent="space-between" mb={1}>
-                        <Typography variant="body2">Revenue Target</Typography>
-                        <Typography variant="body2" fontWeight="bold">82%</Typography>
-                      </Box>
-                      <LinearProgress variant="determinate" value={82} color="success" sx={{ height: 8, borderRadius: 4 }} />
-                    </Box>
-                    <Box sx={{ mb: 3 }}>
-                      <Box display="flex" justifyContent="space-between" mb={1}>
-                        <Typography variant="body2">Client Satisfaction</Typography>
-                        <Typography variant="body2" fontWeight="bold">91%</Typography>
-                      </Box>
-                      <LinearProgress variant="determinate" value={91} color="warning" sx={{ height: 8, borderRadius: 4 }} />
-                    </Box>
-                  </Box>
                 </Paper>
               </Grid>
 

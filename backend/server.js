@@ -8,6 +8,7 @@ const leadRoutes = require('./routes/leads'); // leads routes
 const clientRoutes = require('./routes/clients'); // client routes
 const expenseRoutes = require('./routes/expenses'); // expenses routes
 const statsRoutes = require('./routes/stats'); // stats routes
+const tasksRoutes = require('./routes/tasks');
 
 
 // Load environment variables
@@ -50,6 +51,9 @@ try {
     });
 }
 
+// Tasks routes
+app.use('/api/tasks', tasksRoutes);
+console.log('✅ Tasks routes loaded');
 
 // Leads routes
 app.use('/api/leads', leadRoutes); // Add this line

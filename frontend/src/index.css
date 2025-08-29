@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@layer utilities {
+  .glass {
+    @apply backdrop-blur bg-white/70 dark:bg-slate-800/60 border border-white/40 dark:border-slate-700 shadow-lg;
+  }
+  .slide {
+    transition: all .25s cubic-bezier(.4,0,.2,1);
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #d9d5ffa2;
-  font-weight: ;
+  
 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.63' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
 

@@ -296,7 +296,7 @@ const Leads = () => {
                     {/* Header */}
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} sx={{ p: 2, bgcolor: '#fff', borderRadius: "10px", paddingRight: '3vw', }} >
                         <div className='flex items-center'>
-                            <img src="./public/s-logo.png" style={{ width: '5vw', height: '5vw', marginRight: '10px' }} alt="" />
+                            <img src="/s-logo.png" style={{ width: '5vw', height: '5vw', marginRight: '10px' }} alt="" />
                             <h1 className='text-3xl font-bold' >Leads Management</h1>
                         </div>
                         <Button

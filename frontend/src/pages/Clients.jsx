@@ -329,7 +329,7 @@ const Clients = () => {
                     {/* Header */}
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
                         <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src="./public/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
+                            <img src="/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
                             <p>Client & Project Management</p>
                         </Typography>
                         <Button

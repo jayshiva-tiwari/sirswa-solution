@@ -517,7 +517,7 @@ const Expenses = () => {
                     {/* Header */}
                     <Box display="flex" sx={{ p: 2, mb: 3, bgcolor: '#ffffffa7', borderRadius: '10px', paddingRight: '2vw', paddingLeft: '1vw' }} justifyContent="space-between" alignItems="center" mb={3}>
                         <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
-                            <img src="./public/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
+                            <img src="/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
                             <span class="relative text-4xl font-bold text-gray-800 group">
                                 <span class="relative z-10 group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-cyan-500">
                                     <span class="group-hover:drop-shadow-gray-800">
