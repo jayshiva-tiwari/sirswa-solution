@@ -324,13 +324,20 @@ const Clients = () => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{ bgcolor: '#d9d5ffa2' }}>
                 <Box sx={{ py: 3 }}>
                     {/* Header */}
-                    <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+                    <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} sx={{ p: 2, mb: 3, bgcolor: '#ffffffa7', borderRadius: '10px', paddingRight: '2vw', paddingLeft: '1vw' }}>
                         <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
                             <img src="/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
-                            <p>Client & Project Management</p>
+                            <span class="relative text-4xl font-bold text-gray-800 group">
+                                <span class="relative z-10 group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-cyan-500">
+                                    <span class="group-hover:drop-shadow-gray-800">
+                                        <a href="/dashboard" className='' style={{ fontSize: '1.9rem', fontFamily: 'Poppins', textDecoration: 'none', color: 'inherit' }}  ><p>Client & Project Management</p></a>
+                                    </span>
+                                </span>
+                                <span class="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-emerald-400 to-cyan-500 transition-all duration-500 group-hover:w-full"></span>
+                            </span>
                         </Typography>
                         <Button
                             variant="contained"
@@ -363,7 +370,7 @@ const Clients = () => {
                                     </Box>
                                 </CardContent>
                             </Card>
-                        </Grid> 
+                        </Grid>
                         <Grid item xs={12} sm={6} md={3}>
                             <Card>
                                 <CardContent>
@@ -451,65 +458,68 @@ const Clients = () => {
                     </Grid>
 
                     {/* Tabs */}
-                    <Paper sx={{ mb: 3 }}>
-                        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
-                            <Tab label={`All Clients (${clients.length})`} style={{ width: '17vw' }} />
-                            <Tab label="Pending Payments" style={{ width: '17vw' }} />
-                            <Tab label="Ongoing Projects" style={{ width: '17vw' }} />
-                            {/* <Tab label="Overdue Projects" /> */}
-                        </Tabs>
-                    </Paper>
+
 
                     {/* Filters */}
-                    <Paper sx={{ p: 2, mb: 3 }}>
-                        <Grid container spacing={2} alignItems="center">
-                            <Grid item xs={12} md={6}>
-                                <TextField
-                                    fullWidth
-                                    variant="outlined"
-                                    placeholder="Search by name, email, phone or project..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    style={{ width: '25vw' }}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <Search />
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
+                    <Paper sx={{ p: 2, mb: 3 }} >
+                        <Grid container spacing={2} alignItems="center" sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Grid sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        fullWidth
+                                        variant="outlined"
+                                        placeholder="Search by name, email, phone or project..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        style={{ width: '25vw' }}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <Search />
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={4}>
+                                    <TextField
+                                        select
+                                        fullWidth
+                                        label="Filter by Status"
+                                        value={filterStatus}
+                                        onChange={(e) => setFilterStatus(e.target.value)}
+                                        style={{ width: '10vw' }}
+                                    >
+                                        <MenuItem value="all">All Status</MenuItem>
+                                        {deliveryStatusOptions.map(option => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.value}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                </Grid>
+                                <Grid item xs={12} md={2}>
+                                    <Button
+                                        fullWidth
+                                        variant="outlined"
+                                        startIcon={<Refresh />}
+                                        onClick={() => {
+                                            fetchClients();
+                                            fetchStats();
+                                        }}
+                                        style={{ width: '10vw', height: '7.5vh' }}
+                                    >
+                                        Refresh
+                                    </Button>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12} md={4}>
-                                <TextField
-                                    select
-                                    fullWidth
-                                    label="Filter by Status"
-                                    value={filterStatus}
-                                    onChange={(e) => setFilterStatus(e.target.value)}
-                                    style={{ width: '13vw' }}
-                                >
-                                    <MenuItem value="all">All Status</MenuItem>
-                                    {deliveryStatusOptions.map(option => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.value}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                                <Button
-                                    fullWidth
-                                    variant="outlined"
-                                    startIcon={<Refresh />}
-                                    onClick={() => {
-                                        fetchClients();
-                                        fetchStats();
-                                    }}
-                                    style={{ width: '10vw', height: '7.5vh' }}
-                                >
-                                    Refresh
-                                </Button>
+                            <Grid item xs={12}>
+                                <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
+                                    <Tab label={`All Clients (${clients.length})`} style={{ width: '15vw' }} />
+                                    <Tab label="Pending Payments" style={{ width: '15vw' }} />
+                                    <Tab label="Ongoing Projects" style={{ width: '15vw' }} />
+                                    {/* <Tab label="Overdue Projects" /> */}
+                                </Tabs>
                             </Grid>
                         </Grid>
                     </Paper>
@@ -600,16 +610,16 @@ const Clients = () => {
                                                 size="small"
                                             />
                                         </TableCell>
-                                        <TableCell align="center" sx={{display:'flex', justifyContent:'center', alignItems: 'center', height:'9vw', gap:'0.5vw', flexDirection: 'column'}}>
-                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[6vw] rounded-[0.5vw] bg-emerald-400/60 ' onClick={() => handleOpenPaymentDialog(client)} >
+                                        <TableCell align="center" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '9vw', gap: '0.5vw', flexDirection: 'column' }}>
+                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[6vw] rounded-[0.5vw] bg-emerald-400/60 hover:bg-emerald-500 transition-all ' onClick={() => handleOpenPaymentDialog(client)} >
                                                 <Payment className=' text-emerald-50 ' />
                                                 <p className='text-[0.8vw]' >Payment</p>
                                             </button>
-                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[4vw] rounded-[0.5vw] bg-fuchsia-300/60 ' onClick={() => handleOpenDialog(client)} >
-                                                <Edit className=' text-fuchsia-50 text-[0.9vw]' />
+                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[6vw] rounded-[0.5vw] bg-fuchsia-300/60 hover:bg-fuchsia-500 transition-all ' onClick={() => handleOpenDialog(client)} >
+                                                <Edit className=' text-fuchsia-50 text-[1vw]' />
                                                 <p className='text-[0.8vw]' >Edit</p>
                                             </button>
-                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[5vw] rounded-[0.5vw] bg-pink-600/60 ' onClick={() => handleDelete(client._id)} >
+                                            <button className='cursor-pointer flex justify-center items-center  gap-[0.3vw] h-[2vw] w-[6vw] rounded-[0.5vw] bg-pink-600/60 hover:bg-pink-600 transition-all ' onClick={() => handleDelete(client._id)} >
                                                 <Delete className=' text-red-50 ' />
                                                 <p className='text-[0.8vw]' >Delete</p>
                                             </button>

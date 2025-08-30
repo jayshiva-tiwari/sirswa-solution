@@ -9,6 +9,7 @@ const clientRoutes = require('./routes/clients'); // client routes
 const expenseRoutes = require('./routes/expenses'); // expenses routes
 const statsRoutes = require('./routes/stats'); // stats routes
 const tasksRoutes = require('./routes/tasks');
+const metricsRoutes = require('./routes/metrics'); // metrics routes
 
 
 // Load environment variables
@@ -70,6 +71,10 @@ console.log('✅ Expense routes loaded');
 
 app.use('/api/stats', statsRoutes);
 console.log('✅ Stats routes loaded');
+
+// metrics routes
+app.use('/api/metrics', metricsRoutes);
+console.log('✅ Metrics routes loaded');
 
 // 404 handler
 app.use((req, res) => {

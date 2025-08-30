@@ -4,6 +4,7 @@ import Loader from '../components/Loader'; // Import the Loader component
 // import Landing from '../components/Landing'; // Import the Landing component
 import Background from '../components/Background';
 import TodayTasks from '../components/TodayTasks';
+import PerformanceMetrics from '../components/PerformanceMetrics'; // Import the new component
 import {
   Container,
   Paper,
@@ -119,12 +120,12 @@ const Dashboard = () => {
     ];
 
   // Mock data for recent activities
-  const recentActivities = [
-    { icon: <CheckCircle color="success" />, title: 'New lead added', time: '2 hours ago', desc: 'John Doe from Mumbai' },
-    { icon: <Groups color="primary" />, title: 'Client converted', time: '5 hours ago', desc: 'ABC Company project confirmed' },
-    { icon: <AttachMoney color="warning" />, title: 'Payment received', time: '1 day ago', desc: '₹50,000 from XYZ Corp' },
-    { icon: <Task color="info" />, title: 'Follow-up scheduled', time: '2 days ago', desc: 'Meeting with potential client' },
-  ];
+  // const recentActivities = [
+  //   { icon: <CheckCircle color="success" />, title: 'New lead added', time: '2 hours ago', desc: 'John Doe from Mumbai' },
+  //   { icon: <Groups color="primary" />, title: 'Client converted', time: '5 hours ago', desc: 'ABC Company project confirmed' },
+  //   { icon: <AttachMoney color="warning" />, title: 'Payment received', time: '1 day ago', desc: '₹50,000 from XYZ Corp' },
+  //   { icon: <Task color="info" />, title: 'Follow-up scheduled', time: '2 days ago', desc: 'Meeting with potential client' },
+  // ];
 
   return (
     <Background gradient="from-indigo-50 via-violet-50 to-white" patternColor="#4f46e5">
@@ -300,78 +301,15 @@ const Dashboard = () => {
                     scroll Down
                   </button>
                 </div>
-              </div>
+            </div>
             
             <Grid container spacing={3} sx={{ alignContent: 'center' }}>
               {/* Quick Actions / Features */}
-
-
               {/* Today Tasks */}
               <TodayTasks />
-
               {/* Recent Activities */}
-              <Grid item xs={12}>
-                <Paper elevation={1} sx={{ p: 3 }} className='w-[32vw]'>
-                  <Typography variant="h6" gutterBottom fontWeight="bold" className='text-left'>
-                    Recent Activities
-                  </Typography>
-                  <List>
-                    {recentActivities.map((activity, index) => (
-                      <ListItem key={index} sx={{ px: 0 }}>
-                        <ListItemAvatar>
-                          <Avatar sx={{ bgcolor: 'grey.100' }}>
-                            {activity.icon}
-                          </Avatar>
-                        </ListItemAvatar>
-                        <Box sx={{ flexGrow: 1 }}>
-                          <Typography variant="subtitle2">{activity.title}</Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {activity.desc}
-                          </Typography>
-                        </Box>
-                        <Typography variant="caption" color="text.secondary">
-                          {activity.time}
-                        </Typography>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Paper>
-              </Grid>
-
               {/* Quick Stats */}
-              <Grid item xs={12} md={6}   >
-                <Paper elevation={1} sx={{ p: 3 }} className='w-[95.5vw] border-radius-5'>
-                  <Typography variant="h6" gutterBottom fontWeight="bold"  >
-                    Performance Metrics
-                  </Typography>
-                  <Grid container spacing={2} sx={{ mt: 1, display: 'flex', justifyContent: 'center', }}  >
-                    <Grid item xs={6} >
-                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }} >
-                        <Typography variant="h5" color="primary" fontWeight="bold">24</Typography>
-                        <Typography variant="body2" color="text.secondary">New Leads This Week</Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }}>
-                        <Typography variant="h5" color="success.main" fontWeight="bold">08</Typography>
-                        <Typography variant="body2" color="text.secondary">Deals Closed</Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }}>
-                        <Typography variant="h5" color="warning.main" fontWeight="bold">16</Typography>
-                        <Typography variant="body2" color="text.secondary">Pending Follow-ups</Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Box textAlign="center" p={5} borderRadius={2} sx={{ width: '22vw', bgcolor: '#e3d8f3b0' }}>
-                        <Typography variant="h5" color="info.main" fontWeight="bold">92%</Typography>
-                        <Typography variant="body2" color="text.secondary">Response Rate</Typography>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
+              <PerformanceMetrics />
             </Grid>
           </Box>
         </Container>

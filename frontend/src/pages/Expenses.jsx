@@ -569,36 +569,36 @@ const Expenses = () => {
 
                             <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '2vw', }}>
                                 <Grid item xs={12} sm={6} md={3}>
-                                    <Card sx={{ bgcolor: 'success.50',  width: '18vw', height: '10vw' }}>
+                                    <Card sx={{ bgcolor: 'success.50',  width: '16vw', height: '10vw' }}>
                                         <CardContent>
                                             <Box display="flex" alignItems="center" justifyContent="space-between">
                                                 <Box>
-                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1vw', fontWeight: '600', paddingTop: '1vw' }}>
                                                         Total Income
                                                     </Typography>
-                                                    <Typography variant="h5" color="success.main" sx={{ fontSize: '3vw', fontWeight: 'bolder', paddingTop: '1vw' }}>
+                                                    <Typography variant="h5" color="success.main" sx={{ fontSize: '2.5vw', fontWeight: 'bolder', }}>
                                                         {formatCurrency(summary.totalIncome)}
                                                     </Typography>
                                                 </Box>
-                                                <TrendingUp color="success" sx={{ fontSize: 90, opacity: 0.3 ,}} />
+                                                <TrendingUp color="success" sx={{ fontSize: 90, opacity: 0.3, marginTop: '1vw'}} />
                                             </Box>
                                         </CardContent>
                                     </Card>
                                 </Grid>
 
                                 <Grid item xs={12} sm={6} md={3}>
-                                    <Card sx={{ bgcolor: 'error.50', width: '18vw', height: '10vw'}}>
+                                    <Card sx={{ bgcolor: 'error.50', width: '16vw', height: '10vw'}}>
                                         <CardContent>
                                             <Box display="flex" alignItems="center" justifyContent="space-between">
-                                                <Box>
-                                                    <Typography color="textSecondary" gutterBottom variant="body2"sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                <Box sx={{marginTop: '1vw'}}>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2"sx={{ fontSize: '1vw', fontWeight: '600', paddingTop: '1vw'  }}>
                                                         Total Expenses
                                                     </Typography>
-                                                    <Typography variant="h5" color="error.main" sx={{ fontSize: '3vw', fontWeight: 'bolder', paddingTop: '1vw' }}>
+                                                    <Typography variant="h5" color="error.main" sx={{ fontSize: '2.5vw', fontWeight: 'bolder', }}>
                                                         {formatCurrency(summary.totalExpenses)}
                                                     </Typography>
                                                 </Box>
-                                                <TrendingDown color="error" sx={{ fontSize: 90, opacity: 0.3 }} />
+                                                <TrendingDown color="error" sx={{ fontSize: 90, opacity: 0.3, marginTop: '1vw'  }} />
                                             </Box>
                                         </CardContent>
                                     </Card>
@@ -607,24 +607,24 @@ const Expenses = () => {
 
                             <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '2vw' }}>
                                 <Grid item xs={12} sm={6} md={3}>
-                                    <Card sx={{ bgcolor: summary.profit >= 0 ? 'primary.50' : 'warning.50',width: '18vw', height: '10vw' }}>
+                                    <Card sx={{ bgcolor: summary.profit >= 0 ? 'primary.50' : 'warning.50',width: '16vw', height: '10vw' }}>
                                         <CardContent>
                                             <Box display="flex" alignItems="center" justifyContent="space-between">
                                                 <Box>
-                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1vw', fontWeight: '600',paddingTop: '1vw' }}>
                                                         Net Profit
                                                     </Typography>
                                                     <Typography
                                                         variant="h5"
                                                         color={summary.profit >= 0 ? 'primary.main' : 'warning.main'}
-                                                        sx={{ fontSize: '4vw', fontWeight: 'bolder',paddingTop: '1vw' }}
+                                                        sx={{ fontSize: '2.5vw', fontWeight: 'bolder', }}
                                                     >
                                                         {formatCurrency(summary.profit)}
                                                     </Typography>
                                                 </Box>
                                                 <Assessment
                                                     color={summary.profit >= 0 ? 'primary' : 'warning'}
-                                                    sx={{ fontSize: 90, opacity: 0.3 }}
+                                                    sx={{ fontSize: 90, opacity: 0.3, marginTop: '1vw' }}
                                                 />
                                             </Box>
                                         </CardContent>
@@ -632,18 +632,18 @@ const Expenses = () => {
                                 </Grid>
 
                                 <Grid item xs={12} sm={6} md={3}>
-                                    <Card sx={{ bgcolor: 'info.50', width: '18vw', height: '10vw' }}>
+                                    <Card sx={{ bgcolor: 'info.50', width: '16vw', height: '10vw' }}>
                                         <CardContent>
                                             <Box display="flex" alignItems="center" justifyContent="space-between">
-                                                <Box>
-                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1.3vw', fontWeight: '600' }}>
+                                                <Box sx={{ marginTop: '1vw'}}>
+                                                    <Typography color="textSecondary" gutterBottom variant="body2" sx={{ fontSize: '1vw', fontWeight: '600', paddingTop: '1vw' }}>
                                                         Profit Margin
                                                     </Typography>
-                                                    <Typography variant="h5" color="info.main" sx={{ fontSize: '3.3vw', fontWeight: 'bolder', paddingTop: '1vw'  }}>
+                                                    <Typography variant="h5" color="info.main" sx={{ fontSize: '2.5vw', fontWeight: 'bolder', }}>
                                                         {summary.profitMargin}%
                                                     </Typography>
                                                 </Box>
-                                                <AccountBalance color="info" sx={{ fontSize: 90, opacity: 0.3 }} />
+                                                <AccountBalance color="info" sx={{ fontSize: 90, opacity: 0.3, marginTop: '1vw' }} />
                                             </Box>
                                         </CardContent>
                                     </Card>
@@ -651,9 +651,9 @@ const Expenses = () => {
                             </Grid>
                         </Grid>
                         {/* Charts */}
-                        <Grid container spacing={3} mb={3} sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', gap: '9vw' }}>
+                        <Grid container spacing={3} mb={3} sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', gap: '13vw' }}>
                             <Grid item xs={12} md={6} sx={{  }}>
-                                <Paper sx={{ p: 3 , width:'130%' }}>
+                                <Paper sx={{ p: 3 , width:'150%' }}>
                                     <Typography variant="h6" gutterBottom>
                                         Expense Breakdown by Category
                                     </Typography>
@@ -814,7 +814,7 @@ const Expenses = () => {
                                                 <Chip label={expense.paymentMethod} size="small" variant="outlined" />
                                             </TableCell>
                                             <TableCell>{expense.receiptNumber || '-'}</TableCell>
-                                            <TableCell align="center">
+                                            <TableCell align="center" sx={{ display: 'flex', justifyContent: 'center' }}>
                                                 <StyledWrapper>
                                                     <button className="button"
                                                         onClick={() => handleOpenDialog(expense)}

@@ -291,14 +291,21 @@ const Leads = () => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{ bgcolor: '#d9d5ffa2' }}>
                 <Box sx={{ py: 3 }}>
                     {/* Header */}
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} sx={{ p: 2, bgcolor: '#fff', borderRadius: "10px", paddingRight: '3vw', }} >
-                        <div className='flex items-center'>
-                            <img src="/s-logo.png" style={{ width: '5vw', height: '5vw', marginRight: '10px' }} alt="" />
-                            <h1 className='text-3xl font-bold' >Leads Management</h1>
-                        </div>
+                        <Typography variant="h4" gutterBottom fontWeight="bold" style={{ display: 'flex', alignItems: 'center' }}>
+                            <img src="/s-logo.png" style={{ width: '50px', height: '50px', marginRight: '10px' }} alt="" />
+                            <span class="relative text-4xl font-bold text-gray-800 group">
+                                <span class="relative z-10 group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-400 group-hover:to-cyan-500">
+                                    <span class="group-hover:drop-shadow-gray-800">
+                                        <a href="/dashboard" className='' style={{ fontSize: '1.9rem', fontFamily: 'Poppins' , textDecoration: 'none', color: 'inherit' }}  ><p>Leads Management</p></a>
+                                    </span>
+                                </span>
+                                <span class="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-emerald-400 to-cyan-500 transition-all duration-500 group-hover:w-full"></span>
+                            </span>
+                        </Typography>
                         <Button
                             variant="contained"
                             startIcon={<Add />}
@@ -512,7 +519,7 @@ const Leads = () => {
                                         <TableCell align="center" style={{ display: 'flex', justifyContent: 'center', gap: '1vw' }}>
                                             <StyledWrapper>
                                                 <button className="button"
-                                                onClick={() => handleOpenDialog(lead)}
+                                                    onClick={() => handleOpenDialog(lead)}
                                                 >
                                                     <svg className="svg-icon" fill="none" height={24} viewBox="0 0 24 24" width={24} xmlns="http://www.w3.org/2000/svg"><g stroke="#a649da" strokeLinecap="round" strokeWidth={2}><path d="m20 20h-16" /><path clipRule="evenodd" d="m14.5858 4.41422c.781-.78105 2.0474-.78105 2.8284 0 .7811.78105.7811 2.04738 0 2.82843l-8.28322 8.28325-3.03046.202.20203-3.0304z" fillRule="evenodd" /></g></svg>
                                                     <span className="lable">Edit</span>
