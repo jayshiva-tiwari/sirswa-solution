@@ -38,7 +38,7 @@ const MetricCard = ({ title, value, icon, color, suffix = '' }) => {
                         {icon}
                     </Box>
                 </Box>
-                <Typography variant="h3" fontWeight="bold" mt={1}>
+                <Typography variant="h6" fontWeight="bold" mt={1}>
                     <CountUp end={value} duration={1.5} separator="," />
                     {suffix}
                 </Typography>
@@ -100,7 +100,7 @@ const PerformanceMetrics = () => {
     ];
 
     return (
-        <Box sx={{ width: '100vw', bgcolor: 'background.alt,  ', p: 4 }}>
+        <Box sx={{  bgcolor: 'background.paper', p: 4, borderRadius: 3, boxShadow: 3 }}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
                 Performance Metrics
             </Typography>

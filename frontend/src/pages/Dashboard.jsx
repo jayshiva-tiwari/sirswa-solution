@@ -303,7 +303,7 @@ const Dashboard = () => {
                 </div>
             </div>
             
-            <Grid container spacing={3} sx={{ alignContent: 'center' }}>
+            <Grid container spacing={3} sx={{ alignContent: 'center', display: 'flex', justifyContent: 'center'  }}>
               {/* Quick Actions / Features */}
               {/* Today Tasks */}
               <TodayTasks />

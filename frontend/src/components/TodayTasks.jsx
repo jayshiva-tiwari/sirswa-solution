@@ -121,6 +121,9 @@ export default function TodayTasksMui() {
                 height: '100%',
                 borderRadius: 3,
                 backdropFilter: 'blur(6px)',
+                width: '60%',
+                // maxWidth: 600,
+                mx: 'auto',
             }}
         >
             {/* Header */}
